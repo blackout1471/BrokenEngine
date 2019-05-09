@@ -35,4 +35,4 @@ The engine will implement ecs because this will fix the issue with inheritance. 
 - [ ] Core abstraction
 - [ ] Time module
 
-![alt text](https://imgur.com/vWr7gNQ "Uml")
+![alt text](https://github.com/blackout1471/BrokenEngine/blob/master/BrokenEngine.jpg "Uml")
