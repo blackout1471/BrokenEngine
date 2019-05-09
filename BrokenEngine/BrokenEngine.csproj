@@ -68,7 +68,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\Input.cs" />
     <Compile Include="Application\Window.cs" />
+    <Compile Include="Maths\Vec2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
