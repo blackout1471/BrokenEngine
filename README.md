@@ -7,7 +7,9 @@ The engine will implement ecs because this will fix the issue with inheritance. 
 ## Libraties
 The Engine will use the libraries
 Glfw net: https://github.com/luca-piccioni/OpenGL.Net
+
 OpenGl Net: https://github.com/luca-piccioni/OpenGL.Net
+
 Glfw Dll: https://www.glfw.org/
 
 ## TODO:
