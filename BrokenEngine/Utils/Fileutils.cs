@@ -24,7 +24,8 @@ namespace BrokenEngine.Utils
             }
             catch (System.Exception e)
             {
-                throw e;
+                Debug.Log(e.ToString(), Debug.DebugLayer.IO, Debug.DebugLevel.Warning);
+                return null;
             }
 
             string line = "";
@@ -51,7 +52,8 @@ namespace BrokenEngine.Utils
             }
             catch (System.Exception e)
             {
-                throw e;
+                Debug.Log(e.ToString(), Debug.DebugLayer.IO, Debug.DebugLevel.Warning);
+                return null;
             }
 
             byte[] data = new byte[fileinfo.Length];
@@ -66,7 +68,27 @@ namespace BrokenEngine.Utils
             return data;
         }
 
-        public static Bitmap ReadFileAsImage(string path) { throw new System.NotImplementedException(); }
+        /// <summary>
+        /// Returns a bitmap object
+        /// can read most image formats
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static Bitmap ReadFileAsImage(string path)
+        {
+            Bitmap img = null;
+
+            try
+            {
+                 img = new Bitmap(path);
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log(e.ToString(), Debug.DebugLayer.IO, Debug.DebugLevel.Warning);
+            }
+
+            return img;
+        }
 
     }
 }

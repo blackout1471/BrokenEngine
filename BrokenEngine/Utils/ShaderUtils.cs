@@ -1,10 +1,78 @@
 ﻿using OpenGL;
+using System.Text;
+using BrokenEngine.Utils;
 
 namespace BrokenEngine.Utils
 {
     public static class ShaderUtils
     {
-        public static uint LoadShader(string vertexPath, string fragmentPath) { throw new System.NotImplementedException(); }
-        private static uint CreateShader(string[] vertexSource, string[] fragmentSource) { throw new System.NotImplementedException(); }
+        /// <summary>
+        /// Loads a shader from file and returns the programs id
+        /// </summary>
+        /// <param name="vertexPath"></param>
+        /// <param name="fragmentPath"></param>
+        /// <returns></returns>
+        public static uint LoadShader(string vertexPath, string fragmentPath)
+        {
+            string[] vertexSource = FileUtils.ReadFileAsString(vertexPath);
+            string[] fragmentSource = FileUtils.ReadFileAsString(fragmentPath);
+
+            return CreateShader(vertexSource, fragmentSource);
+        }
+
+        /// <summary>
+        /// Creates the shader and returns the handle to it
+        /// </summary>
+        /// <param name="vertexSource"></param>
+        /// <param name="fragmentSource"></param>
+        /// <returns></returns>
+        private static uint CreateShader(string[] vertexSource, string[] fragmentSource)
+        {
+            StringBuilder infolog = new StringBuilder(1024);
+            int infoLogLength;
+
+            // Create a shader id
+            uint programid = Gl.CreateProgram();
+            uint vertexId = Gl.CreateShader(ShaderType.VertexShader);
+            uint fragmentId = Gl.CreateShader(ShaderType.FragmentShader);
+
+            // Create shader from source
+            Gl.ShaderSource(vertexId, vertexSource);
+            Gl.ShaderSource(fragmentId, fragmentSource);
+
+            int compileStatus = 0;
+
+            // Compile the shaders
+            Gl.CompileShader(vertexId);
+            Gl.GetShader(vertexId, ShaderParameterName.CompileStatus, out compileStatus);
+
+            if (compileStatus == 0)
+            {
+                Gl.GetShaderInfoLog(vertexId, 1024, out infoLogLength, infolog);
+            }
+
+            Gl.CompileShader(fragmentId);
+            Gl.GetShader(fragmentId, ShaderParameterName.CompileStatus, out compileStatus);
+
+            if (compileStatus == 0)
+            {
+                Gl.GetShaderInfoLog(fragmentId, 1024, out infoLogLength, infolog);
+            }
+
+            if (infolog.Length > 0)
+                Debug.Log("Could not compile shaders " + infolog, Debug.DebugLayer.Shaders, Debug.DebugLevel.Warning);
+                
+            // Attach the shaders to the shader program
+            Gl.AttachShader(programid, vertexId);
+            Gl.AttachShader(programid, fragmentId);
+
+            // Link the shaders
+            Gl.LinkProgram(programid);
+
+            // Validate the shader program
+            Gl.ValidateProgram(programid);
+
+            return programid;
+        }
     }
 }

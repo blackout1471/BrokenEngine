@@ -60,7 +60,7 @@ namespace BrokenEngine.Application
                     break;
             }
 
-            Debug.Log("Input Keyboard " + key, Debug.DebugLayer.Application);
+            Debug.Log("Input Keyboard " + key, Debug.DebugLayer.Application, Debug.DebugLevel.Information);
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace BrokenEngine.Application
                     break;
             }
 
-            Debug.Log("Input Mouse button " + button, Debug.DebugLayer.Application);
+            Debug.Log("Input Mouse button " + button, Debug.DebugLayer.Application, Debug.DebugLevel.Information);
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace BrokenEngine.Application
             Glfw.SetCursorPosCallback(window, cursorPosDel);
 
 
-            Debug.Log("Window Created", Debug.DebugLayer.Application);
+            Debug.Log("Window Created", Debug.DebugLayer.Application, Debug.DebugLevel.Information);
         }
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace BrokenEngine.Application
             // Set the title
             Glfw.SetWindowTitle(window, this.title);
 
-            Debug.Log("Window Title " + title, Debug.DebugLayer.Application);
+            Debug.Log("Window Title " + title, Debug.DebugLayer.Application, Debug.DebugLevel.Information);
         }
 
         /// <summary>
@@ -223,7 +223,7 @@ namespace BrokenEngine.Application
             // Destroys the window
             Glfw.DestroyWindow(window);
 
-            Debug.Log("Window Destroyed", Debug.DebugLayer.Application);
+            Debug.Log("Window Destroyed", Debug.DebugLayer.Application, Debug.DebugLevel.Information);
         }
         #endregion
     }

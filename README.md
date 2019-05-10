@@ -22,13 +22,15 @@ Glfw Dll: https://www.glfw.org/
 - [ ] TextureManager
 - [ ] Texture Array Object
 ### Systems
-- [ ] System Manager
+- [x] System Manager
 - [ ] Shaders
 - [ ] BatchRenderer
 - [ ] BasicRenderer
 - [ ] Collision system between 2 entities
 - [ ] Collision system for all entities
-- [ ] Render Buffers
+- [x] Vao(Vertex Array Object) Buffer
+- [x] Vbo(Vertex Buffer Object) Buffer
+- [x] Ibo(Index Buffer Object) Buffer
 ### Components
 - [ ] Components
 - [ ] Entities
@@ -37,8 +39,8 @@ Glfw Dll: https://www.glfw.org/
 - [x] Vectors
 - [x] Matrices
 ### Utilities
-- [ ] File utilities
-- [ ] Shader utilities
+- [x] File utilities
+- [x] Shader utilities
 - [x] Debug utilities
 ### Core
 - [ ] Core abstraction

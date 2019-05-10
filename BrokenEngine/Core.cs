@@ -1,6 +1,7 @@
 ﻿using OpenGL;
 using BrokenEngine.Application;
 using BrokenEngine.Utils;
+using BrokenEngine.Systems;
 using System;
 
 namespace BrokenEngine
@@ -26,12 +27,27 @@ namespace BrokenEngine
             window = new Window();
             window.Init();
             Gl.Viewport(0, 0, window.Width, window.Height);
+
+
+            // Start all the Systems
+            SystemManager.Instance.Start();
         }
 
         /// <summary>
         /// Updates all the engine related stuff
         /// </summary>
-        private void Update() {}
+        private void Update()
+        {
+            SystemManager.Instance.Update();
+        }
+
+        /// <summary>
+        /// Draws all the engine related stuff
+        /// </summary>
+        private void Draw()
+        {
+            SystemManager.Instance.Draw();
+        }
 
         #endregion
 
@@ -47,6 +63,11 @@ namespace BrokenEngine
         /// </summary>
         protected abstract void OnUpdate();
 
+        /// <summary>
+        /// Method which will be called before start
+        /// </summary>
+        protected virtual void Initialise() { return; }
+
         #endregion
 
         /// <summary>
@@ -54,6 +75,8 @@ namespace BrokenEngine
         /// </summary>
         public void RunEngine()
         {
+            Initialise();
+
             Start();
             OnStart();
             Debug.InitialiseDebug();
@@ -81,14 +104,17 @@ namespace BrokenEngine
                 Update();
 
                 // Render here
-
+                Draw();
 
                 running = !window.ShouldWindowClose();
 
 
-                ErrorCode glError = Gl.GetError();
-                if (glError != ErrorCode.NoError)
-                    Debug.Log("Opengl Error: " + glError, Debug.DebugLayer.Render, Debug.DebugLevel.Error);
+                if (Debug.DoDebug)
+                {
+                    ErrorCode glError = Gl.GetError();
+                    if (glError != ErrorCode.NoError)
+                        Debug.Log("Opengl Error: " + glError, Debug.DebugLayer.Render, Debug.DebugLevel.Error);
+                }
             }
 
             window.Destroy();

@@ -4,6 +4,6 @@
     {
         internal abstract void Start();
         internal abstract void Update();
-        internal abstract void Draw();
+        internal virtual void Draw() { return; }
     }
 }

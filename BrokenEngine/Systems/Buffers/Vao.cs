@@ -4,11 +4,30 @@ namespace BrokenEngine.Systems.Buffers
 {
     class Vao
     {
-        private int id;
+        private uint id;
 
-        public Vao() { }
+        /// <summary>
+        /// Initialises the vertex array object
+        /// </summary>
+        public Vao()
+        {
+            id = Gl.GenVertexArray();
+        }
 
-        public void Bind() { throw new System.NotImplementedException(); }
-        public void Unbind() { throw new System.NotImplementedException(); }
+        /// <summary>
+        /// Binds the vertex array object
+        /// </summary>
+        public void Bind()
+        {
+            Gl.BindVertexArray(id);
+        }
+
+        /// <summary>
+        /// Unbinds the vertex array object
+        /// </summary>
+        public void Unbind()
+        {
+            Gl.BindVertexArray(0);
+        }
     }
 }

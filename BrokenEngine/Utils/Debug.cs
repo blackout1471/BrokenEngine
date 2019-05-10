@@ -28,6 +28,7 @@ namespace BrokenEngine.Utils
             Shaders,
             Textures,
             Render,
+            IO,
             Time,
             Game
         }
@@ -77,7 +78,7 @@ namespace BrokenEngine.Utils
             if (disabledDebugLayers[(int)layer])
                 return;
 
-            string print = string.Format("Layer: {0} {1} Time: {2}", layer, message, DateTime.Now.TimeOfDay);
+            string print = string.Format("{0} {1} Time: {2}", layer, message, DateTime.Now.TimeOfDay);
 
             Console.ForegroundColor = (ConsoleColor)level;
             Console.WriteLine(print);
