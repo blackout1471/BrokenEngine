@@ -15,8 +15,8 @@ Glfw Dll: https://www.glfw.org/
 
 ## TODO:
 ### Application Layer
-- [ ] Window
-- [ ] Input / Event system
+- [x] Window
+- [x] Input / Event system
 ### Graphics
 - [ ] Textures
 - [ ] TextureManager
@@ -34,14 +34,14 @@ Glfw Dll: https://www.glfw.org/
 - [ ] Entities
 - [ ] EntityManager
 ### Maths
-- [ ] Vectors
-- [ ] Matrices
+- [x] Vectors
+- [x] Matrices
 ### Utilities
 - [ ] File utilities
 - [ ] Shader utilities
-- [ ] Debug utilities
+- [x] Debug utilities
 ### Core
 - [ ] Core abstraction
-- [ ] Time module
+- [x] Time module
 ## Uml
 ![alt text](https://github.com/blackout1471/BrokenEngine/blob/master/BrokenEngine.jpg "Uml")

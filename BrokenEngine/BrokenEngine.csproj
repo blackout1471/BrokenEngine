@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\Input.cs" />
+    <Compile Include="Application\Time.cs" />
     <Compile Include="Application\Window.cs" />
     <Compile Include="Components\BaseComponent.cs" />
     <Compile Include="Components\Entity.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Systems\Renders\BatchRenderer2D.cs" />
     <Compile Include="Systems\Renders\Renderer2D.cs" />
     <Compile Include="Systems\SystemManager.cs" />
+    <Compile Include="Utils\Debug.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Utils\ShaderUtils.cs" />
   </ItemGroup>
