@@ -24,7 +24,7 @@ namespace BrokenEngine.Utils
             }
             catch (System.Exception e)
             {
-                Debug.Log(e.ToString(), Debug.DebugLayer.IO, Debug.DebugLevel.Warning);
+                Debug.Log(e.ToString(), Debug.DebugLayer.IO, Debug.DebugLevel.Error);
                 return null;
             }
 
@@ -52,7 +52,7 @@ namespace BrokenEngine.Utils
             }
             catch (System.Exception e)
             {
-                Debug.Log(e.ToString(), Debug.DebugLayer.IO, Debug.DebugLevel.Warning);
+                Debug.Log(e.ToString(), Debug.DebugLayer.IO, Debug.DebugLevel.Error);
                 return null;
             }
 
@@ -84,7 +84,7 @@ namespace BrokenEngine.Utils
             }
             catch (System.Exception e)
             {
-                Debug.Log(e.ToString(), Debug.DebugLayer.IO, Debug.DebugLevel.Warning);
+                Debug.Log(e.ToString(), Debug.DebugLayer.IO, Debug.DebugLevel.Error);
             }
 
             return img;

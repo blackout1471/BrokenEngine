@@ -2,6 +2,7 @@
 using BrokenEngine.Application;
 using BrokenEngine.Utils;
 using BrokenEngine.Systems;
+using BrokenEngine.Components;
 using System;
 
 namespace BrokenEngine
@@ -30,6 +31,7 @@ namespace BrokenEngine
 
 
             // Start all the Systems
+            EntityManager.Instance.StartEntities();
             SystemManager.Instance.Start();
         }
 
@@ -38,6 +40,7 @@ namespace BrokenEngine
         /// </summary>
         private void Update()
         {
+            EntityManager.Instance.UpdateEntities();
             SystemManager.Instance.Update();
         }
 

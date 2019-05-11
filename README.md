@@ -23,7 +23,7 @@ Glfw Dll: https://www.glfw.org/
 - [ ] Texture Array Object
 ### Systems
 - [x] System Manager
-- [ ] Shaders
+- [x] Shaders
 - [ ] BatchRenderer
 - [ ] BasicRenderer
 - [ ] Collision system between 2 entities
@@ -33,8 +33,8 @@ Glfw Dll: https://www.glfw.org/
 - [x] Ibo(Index Buffer Object) Buffer
 ### Components
 - [ ] Components
-- [ ] Entities
-- [ ] EntityManager
+- [x] Entities
+- [x] EntityManager
 ### Maths
 - [x] Vectors
 - [x] Matrices

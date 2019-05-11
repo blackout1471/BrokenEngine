@@ -1,4 +1,5 @@
 ﻿using BrokenEngine.Maths;
+using BrokenEngine.Utils;
 
 namespace BrokenEngine.Application
 {
@@ -200,7 +201,14 @@ namespace BrokenEngine.Application
         /// <param name="action"></param>
         internal static void SetKey(int keycode, InputAction action)
         {
-            keys[keycode] = action;
+            try
+            {
+                keys[keycode] = action;
+            }
+            catch (System.IndexOutOfRangeException e)
+            {
+                Debug.Log("Key:" + keycode + " is not assigned in input.cs", Debug.DebugLayer.Input, Debug.DebugLevel.Error);
+            }
         }
 
         /// <summary>
@@ -210,7 +218,14 @@ namespace BrokenEngine.Application
         /// <param name="action"></param>
         internal static void SetMouseButton(int button, InputAction action)
         {
-            mouseButtons[button] = action;
+            try
+            {
+                mouseButtons[button] = action;
+            }
+            catch (System.IndexOutOfRangeException e)
+            {
+                Debug.Log("Button:" + button + " is not assigned in input.cs" + e, Debug.DebugLayer.Input, Debug.DebugLevel.Error);
+            }
         }
 
         #endregion
