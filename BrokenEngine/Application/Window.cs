@@ -60,7 +60,7 @@ namespace BrokenEngine.Application
                     break;
             }
 
-            Debug.Log("Input Keyboard " + key, Debug.DebugLayer.Application, Debug.DebugLevel.Information);
+            Debug.Log("Input Keyboard " + key, Debug.DebugLayer.Input, Debug.DebugLevel.Information);
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace BrokenEngine.Application
                     break;
             }
 
-            Debug.Log("Input Mouse button " + button, Debug.DebugLayer.Application, Debug.DebugLevel.Information);
+            Debug.Log("Input Mouse button " + button, Debug.DebugLayer.Input, Debug.DebugLevel.Information);
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace BrokenEngine.Application
             Glfw.SetCursorPosCallback(window, cursorPosDel);
 
 
-            Debug.Log("Window Created", Debug.DebugLayer.Application, Debug.DebugLevel.Information);
+            Debug.Log("Window Created size " + width + "x" + height , Debug.DebugLayer.Application, Debug.DebugLevel.Information);
         }
 
         /// <summary>

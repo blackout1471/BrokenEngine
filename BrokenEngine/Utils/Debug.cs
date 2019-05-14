@@ -1,9 +1,17 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace BrokenEngine.Utils
 {
     public static class Debug
     {
+        /// <summary>
+        /// Frees the console from the main thread
+        /// </summary>
+        /// <returns></returns>
+        [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+        private static extern bool FreeConsole();
+
         #region Properties
 
         /// <summary>
@@ -60,8 +68,7 @@ namespace BrokenEngine.Utils
         {
             if (!debug)
             {
-                Console.SetWindowSize(1, 1);
-                Console.SetWindowPosition(0, 0);
+                FreeConsole();
             }
         }
 
