@@ -15,7 +15,7 @@ namespace BrokenEngine.Components
         /// <summary>
         /// The vertices for the component
         /// </summary>
-        internal Vec2 Vertices { get { return vertices; } set { vertices = value; } }
+        internal Vec2[] Vertices { get { return vertices; } set { vertices = value; } }
 
         /// <summary>
         /// The colors of the component
@@ -40,7 +40,7 @@ namespace BrokenEngine.Components
         #endregion
 
         private bool isSubmitted = false;
-        private Vec2 vertices;
+        private Vec2[] vertices;
         private Color[] colors;
         private uint bufferOffset;
         private Texture texture;

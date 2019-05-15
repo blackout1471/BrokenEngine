@@ -17,6 +17,11 @@ namespace BrokenEngine.Graphics
             id = ShaderUtils.LoadShader(vertexPath, fragmentPath);
         }
 
+        public Shader(string[] vertexSource, string[] fragmentSource)
+        {
+            id = ShaderUtils.LoadShader(vertexSource, fragmentSource);
+        }
+
         /// <summary>
         /// Get the uniform id from the shader
         /// </summary>
@@ -37,7 +42,7 @@ namespace BrokenEngine.Graphics
         }
 
         /// <summary>
-        /// Sets a Matrix 4 x 4 uniform for the shader
+        /// Sets a float Matrix 4 x 4 uniform for the shader
         /// </summary>
         /// <param name="uniname"></param>
         /// <param name="matrix"></param>

@@ -15,10 +15,6 @@ namespace BrokenEngine.Components
 
         #endregion
 
-        /// <summary>
-        /// Get all the entities
-        /// </summary>
-        internal Entity[] Entities { get { return entities.ToArray(); } }
 
         /// <summary>
         /// the list of entities
@@ -29,7 +25,38 @@ namespace BrokenEngine.Components
         /// Add a entity to the list
         /// </summary>
         /// <param name="entity"></param>
-        internal void AddEntity(Entity entity) { entities.Add(entity); }
+        internal void AddEntity(Entity entity)
+        {
+            entities.Add(entity);
+        }
+
+        /// <summary>
+        /// Get all the entities
+        /// </summary>
+        /// <returns></returns>
+        internal Entity[] GetEntities()
+        {
+            return entities.ToArray();
+        }
+
+        /// <summary>
+        /// Get all entities with a specific component
+        /// </summary>
+        /// <typeparam name="CompType"></typeparam>
+        /// <returns></returns>
+        internal CompType[] GetEntitiesComponents<CompType>() where CompType : BaseComponent
+        {
+            List<CompType> resEntities = new List<CompType>();
+
+            for (int i = 0; i < entities.Count; i++)
+            {
+                CompType entityComponent = entities[i].GetComponent<CompType>();
+                if ( entityComponent != null)
+                    resEntities.Add(entityComponent);
+            }
+
+            return resEntities.ToArray();
+        }
 
         /// <summary>
         /// Calls all the entities start method

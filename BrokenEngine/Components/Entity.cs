@@ -39,6 +39,9 @@ namespace BrokenEngine.Components
         protected Entity()
         {
             EntityManager.Instance.AddEntity(this);
+            SetPosition(new Vec2(0, 0));
+            SetRotation(0);
+            SetScale(new Vec2(1f, 1f));
         }
 
         /// <summary>
@@ -183,6 +186,8 @@ namespace BrokenEngine.Components
 
             component.Entity = this;
             components.Add(component);
+
+            Debug.Log("Added " + component.GetType(), Debug.DebugLayer.Entity, Debug.DebugLevel.Information);
         }
 
         /// <summary>

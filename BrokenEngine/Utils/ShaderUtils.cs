@@ -20,6 +20,17 @@ namespace BrokenEngine.Utils
         }
 
         /// <summary>
+        /// Creates a shader from a string array and returns the shader program id
+        /// </summary>
+        /// <param name="vertexSource"></param>
+        /// <param name="fragmentSource"></param>
+        /// <returns></returns>
+        public static uint LoadShader(string[] vertexSource, string[] fragmentSource)
+        {
+            return CreateShader(vertexSource, fragmentSource);
+        }
+
+        /// <summary>
         /// Creates the shader and returns the handle to it
         /// </summary>
         /// <param name="vertexSource"></param>
@@ -70,6 +81,8 @@ namespace BrokenEngine.Utils
 
             // Validate the shader program
             Gl.ValidateProgram(programid);
+
+            Debug.Log("Shaders Compiled: Id " + vertexId + ":" + fragmentId, Debug.DebugLayer.Shaders, Debug.DebugLevel.Information);
 
             return programid;
         }

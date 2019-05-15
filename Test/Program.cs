@@ -4,9 +4,9 @@ namespace Test
 {
     class Program : Core
     {
+        quadi a = new quadi();
         protected override void OnStart()
         {
-            
         }
 
         protected override void OnUpdate()

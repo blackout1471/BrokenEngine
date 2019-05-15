@@ -7,6 +7,8 @@ namespace BrokenEngine.Utils
     public static class FileUtils
     {
 
+        #region Methods
+
         /// <summary>
         /// Reads a file and gives an string array back with all the lines
         /// each index is a new line
@@ -89,6 +91,8 @@ namespace BrokenEngine.Utils
 
             return img;
         }
+
+        #endregion
 
     }
 }

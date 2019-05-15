@@ -32,7 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BrokenEngine">
+    <Reference Include="BrokenEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\BrokenEngine\bin\Debug\BrokenEngine.dll</HintPath>
     </Reference>
     <Reference Include="Glfw.Net">
@@ -53,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="quadi.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

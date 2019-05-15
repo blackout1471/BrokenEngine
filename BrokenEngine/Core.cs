@@ -3,12 +3,14 @@ using BrokenEngine.Application;
 using BrokenEngine.Utils;
 using BrokenEngine.Systems;
 using BrokenEngine.Components;
+using BrokenEngine.Systems.Renders;
 using System;
 
 namespace BrokenEngine
 {
     public abstract class Core
     {
+
         #region Variables
 
         private bool running = true;
@@ -29,6 +31,9 @@ namespace BrokenEngine
             window.Init();
             Gl.Viewport(0, 0, window.Width, window.Height);
 
+
+            // Register the systems
+            SystemManager.Instance.RegisterSystem(new Renderer2D());
 
             // Start all the Systems
             EntityManager.Instance.StartEntities();
