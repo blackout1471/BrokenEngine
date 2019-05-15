@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BrokenEngine.Utils;
 
 namespace BrokenEngine.Graphics
 {
@@ -14,18 +15,75 @@ namespace BrokenEngine.Graphics
 
         #region Variables
 
-        private Dictionary<string, Texture> textures;
-        private Tao textureArray;
+        private Dictionary<string, Texture> textures = new Dictionary<string, Texture>();
+
+        private Tao textureArray = new Tao(0);
 
         #endregion
 
         #region Methods
 
-        public void LoadTexture(string name, Texture texture) { throw new System.NotImplementedException(); }
-        internal Texture GetTexture(string name) { throw new System.NotImplementedException(); }
-        internal void BindTextureArrayToShader(string uniform, Shader shader) { throw new System.NotImplementedException(); }
-        internal void BindTextureArray() { throw new System.NotImplementedException(); }
-        internal void UnbindTextureArray() { throw new System.NotImplementedException(); }
+        /// <summary>
+        /// Loads a texture into the texture array
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="texture"></param>
+        public void LoadTexture(string name, Texture texture)
+        {
+            if (textures.ContainsKey(name))
+            {
+                Debug.Log("Can't add texture with the same name", Debug.DebugLayer.Textures, Debug.DebugLevel.Warning);
+                return;
+            }
+
+            texture.Id = textureArray.Upload(texture);
+            textures.Add(name, texture);
+
+            Debug.Log("Texture has been added with name: " + name, Debug.DebugLayer.Textures, Debug.DebugLevel.Information);
+        }
+
+        /// <summary>
+        /// Get a texture from a name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        internal Texture GetTexture(string name)
+        {
+            if (textures.ContainsKey(name))
+            {
+                return textures[name];
+            }
+
+            Debug.Log("Could'nt find texture with name: " + name, Debug.DebugLayer.Textures, Debug.DebugLevel.Warning);
+
+            return null;
+        }
+
+        /// <summary>
+        /// Binds the texture array to a shader
+        /// </summary>
+        /// <param name="uniform"></param>
+        /// <param name="shader"></param>
+        internal void BindTextureArrayToShader(string uniform, Shader shader)
+        {
+            shader.SetUniformI1(uniform, textureArray.Slot);
+        }
+
+        /// <summary>
+        /// Binds the texture array as the current one
+        /// </summary>
+        internal void BindTextureArray()
+        {
+            textureArray.Bind();
+        }
+
+        /// <summary>
+        /// Unbinds the texture array
+        /// </summary>
+        internal void UnbindTextureArray()
+        {
+            textureArray.Unbind();
+        }
 
         #endregion
     }

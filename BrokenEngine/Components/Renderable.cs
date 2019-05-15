@@ -40,11 +40,11 @@ namespace BrokenEngine.Components
         #endregion
 
         private bool isSubmitted = false;
-        private Vec2[] vertices;
-        private Color[] colors;
-        private uint bufferOffset;
-        private Texture texture;
-        private Vec2[,] textureOffsets;
+        private Vec2[] vertices = null;
+        private Color[] colors = null;
+        private uint bufferOffset = 1024;
+        private Texture texture = null;
+        private Vec2[,] textureOffsets = null;
 
 
     }

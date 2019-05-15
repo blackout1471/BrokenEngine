@@ -18,14 +18,14 @@ Glfw Dll: https://www.glfw.org/
 - [x] Window
 - [x] Input / Event system
 ### Graphics
-- [ ] Textures
-- [ ] TextureManager
-- [ ] Texture Array Object
+- [x] Textures
+- [x] TextureManager
+- [x] Texture Array Object
 ### Systems
 - [x] System Manager
 - [x] Shaders
 - [ ] BatchRenderer
-- [ ] BasicRenderer
+- [x] BasicRenderer
 - [ ] Collision system between 2 entities
 - [ ] Collision system for all entities
 - [x] Vao(Vertex Array Object) Buffer

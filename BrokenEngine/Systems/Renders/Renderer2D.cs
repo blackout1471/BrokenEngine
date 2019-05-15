@@ -16,13 +16,11 @@ namespace BrokenEngine.Systems.Renders
         private Ibo ibo;
         private Renderable[] renderableComponents;
         private uint lastEntityOffset;
-        private uint indicieCount;
 
         public Renderer2D()
         {
 
             lastEntityOffset    = 0;
-            indicieCount        = 0;
 
             vao = new Vao();
             vbo = new Vbo(BufferUsage.DynamicDraw, 100000);
@@ -91,8 +89,17 @@ namespace BrokenEngine.Systems.Renders
                     vertexData.Add(renderableComponents[i].Colors[j].A);
 
                     // Tx Ty
-                    vertexData.Add(renderableComponents[i].TextureOffsets[0, j].X);
-                    vertexData.Add(renderableComponents[i].TextureOffsets[0, j].Y);
+                    if (renderableComponents[i].TextureOffsets != null)
+                    {
+                        vertexData.Add(renderableComponents[i].TextureOffsets[0, j].X);
+                        vertexData.Add(renderableComponents[i].TextureOffsets[0, j].Y);
+                    }
+                    else
+                    {
+                        vertexData.Add(0);
+                        vertexData.Add(0);
+                    }
+
 
                     // Texture id
                     if (renderableComponents[i].Texture == null)
@@ -109,7 +116,6 @@ namespace BrokenEngine.Systems.Renders
 
                 renderableComponents[i].IsSubmitted = true;
                 lastEntityOffset += (uint)(renderableComponents[i].Vertices.Length * vbo.VertexSize);
-                indicieCount += 6;
 
                 flushed += 1;
             }
@@ -140,10 +146,12 @@ namespace BrokenEngine.Systems.Renders
 
                 Shader.BasicShader.SetUniformM4("modelView", renderableComponents[i].Entity.ModelView);
 
+                uint quadsCount = (uint)(renderableComponents[i].Vertices.Length / 4);
+
                 Shader.BasicShader.Enable();
                 vao.Bind();
                 ibo.Bind();
-                Gl.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, (IntPtr)((i * 6) * sizeof(int)));
+                Gl.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, (IntPtr)((i * (6 * quadsCount)) * sizeof(int)));
                 ibo.Unbind();
                 vao.Unbind();
                 Shader.BasicShader.Disable();
