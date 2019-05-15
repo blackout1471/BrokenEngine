@@ -3,9 +3,9 @@ using BrokenEngine.Application;
 
 namespace Test
 {
-    class quadi : Entity
+    class qualla : Entity
     {
-        public quadi()
+        public qualla()
         {
         }
 
@@ -13,7 +13,7 @@ namespace Test
         {
             AddComponent(new Quad(new BrokenEngine.Maths.Vec2(20f, 20f), BrokenEngine.Graphics.Color.Red));
 
-            SetPosition(new BrokenEngine.Maths.Vec2(50, 50));
+            SetPosition(new BrokenEngine.Maths.Vec2(100, 100));
 
         }
 

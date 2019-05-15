@@ -179,7 +179,7 @@ namespace BrokenEngine.Components
             {
                 if (GetComponent<Renderable>() != null)
                 {
-                    Debug.Log(EntityName + " Can't add more than one renderable", Debug.DebugLayer.Entity, Debug.DebugLevel.Warning);
+                    Debug.Log(typeof(Renderable) + " Can't add more than one renderable", Debug.DebugLayer.Entity, Debug.DebugLevel.Warning);
                     return;
                 }
             }

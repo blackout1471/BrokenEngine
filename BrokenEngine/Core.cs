@@ -4,6 +4,7 @@ using BrokenEngine.Utils;
 using BrokenEngine.Systems;
 using BrokenEngine.Components;
 using BrokenEngine.Systems.Renders;
+using BrokenEngine.Graphics;
 using System;
 
 namespace BrokenEngine
@@ -31,6 +32,8 @@ namespace BrokenEngine
             window.Init();
             Gl.Viewport(0, 0, window.Width, window.Height);
 
+            // Load all the default shaders
+            Shader.LoadDefaultShaders();
 
             // Register the systems
             SystemManager.Instance.RegisterSystem(new Renderer2D());

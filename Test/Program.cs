@@ -5,6 +5,8 @@ namespace Test
     class Program : Core
     {
         quadi a = new quadi();
+        qualla b = new qualla();
+
         protected override void OnStart()
         {
         }

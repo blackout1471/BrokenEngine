@@ -14,59 +14,12 @@ namespace BrokenEngine.Systems.Renders
         private Vao vao;
         private Vbo vbo;
         private Ibo ibo;
-        private Shader shader;
         private Renderable[] renderableComponents;
         private uint lastEntityOffset;
         private uint indicieCount;
 
         public Renderer2D()
         {
-
-            #region Shaders
-
-            string[] vertexShaderSource = {"#version 330\n",
-                "layout(location = 0) in vec2 pos;\n",
-                "layout(location = 1) in vec4 colors;\n",
-                "layout(location = 2) in vec2 texturepos;\n",
-                "layout(location = 3) in float textureId;\n",
-
-                "uniform mat4 pr_matrix;\n",
-                "uniform mat4 modelView = mat4(1.0);\n",
-
-                "out vec4 outColors;\n",
-                "out vec2 outTexturePos;\n",
-                "out float outTextureId;\n",
-
-                "void main()\n",
-                "{\n",
-                    "gl_Position = pr_matrix * modelView * vec4(pos.xy, 1.0, 1.0);\n",
-                    "//gl_Position = vec4(pos.xy, 1.0, 1.0);\n",
-
-                    "outColors = colors;\n",
-                    "outTexturePos = texturepos;\n",
-                    "outTextureId = textureId;\n",
-                "}\n" };
-
-            string[] fragmentShaderSource = { "#version 330\n",
-                "in vec4 outColors;\n",
-                "in vec2 outTexturePos;\n",
-                "in float outTextureId;\n",
-
-                "uniform sampler2DArray textureArray;\n",
-
-                "void main()\n",
-                "{\n",
-                    " vec4 finalColor = outColors;\n",
-
-                    "if (outTextureId != 1024)\n",
-                    "{\n",
-                        "finalColor *= texture(textureArray, vec3(outTexturePos.xy, outTextureId));\n",
-                    "}\n",
-
-                    "gl_FragColor = finalColor;\n",
-                "}\n" };
-
-            #endregion
 
             lastEntityOffset    = 0;
             indicieCount        = 0;
@@ -81,11 +34,8 @@ namespace BrokenEngine.Systems.Renders
             vbo.PushLayout(new BufferLayout(2, VertexAttribType.Float, false)); // tx, ty
             vbo.PushLayout(new BufferLayout(1, VertexAttribType.Float, false)); // texture id
 
-            // Set shaders and stuff
-            shader = new Shader(vertexShaderSource, fragmentShaderSource);
-
             // TEST ORTOGONAL
-            shader.SetUniformM4("pr_matrix", Matrix4f.Orthogonal(800f, 0f, 600f, 0f, -1.0f, 1.0f));
+            Shader.BasicShader.SetUniformM4("pr_matrix", Matrix4f.Orthogonal(800f, 0f, 600f, 0f, -1.0f, 1.0f));
         }
 
         /// <summary>
@@ -113,6 +63,8 @@ namespace BrokenEngine.Systems.Renders
         private void Flush()
         {
             renderableComponents = EntityManager.Instance.GetEntitiesComponents<Renderable>();
+
+            uint flushed = 0;
 
             if (renderableComponents.Length == 0)
                 return;
@@ -150,8 +102,6 @@ namespace BrokenEngine.Systems.Renders
 
                 }
 
-                Debug.Log("Flushed Entity Pos {" + vertexData[0] + ":" + vertexData[1] + "}", Debug.DebugLayer.Render, Debug.DebugLevel.Information);
-
                 // Add data to vbo
                 vbo.Bind();
                 Gl.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)lastEntityOffset, (uint)(renderableComponents[i].Vertices.Length * vbo.VertexSize), vertexData.ToArray());
@@ -160,7 +110,12 @@ namespace BrokenEngine.Systems.Renders
                 renderableComponents[i].IsSubmitted = true;
                 lastEntityOffset += (uint)(renderableComponents[i].Vertices.Length * vbo.VertexSize);
                 indicieCount += 6;
+
+                flushed += 1;
             }
+
+            if (flushed != 0)
+                Debug.Log("Flushed " + flushed + " Entities", Debug.DebugLayer.Render, Debug.DebugLevel.Information);
         }
 
         internal void UpdateData() { throw new System.NotImplementedException(); }
@@ -183,16 +138,15 @@ namespace BrokenEngine.Systems.Renders
                 if (!renderableComponents[i].Entity.EntityEnabled)
                     continue;
 
-                shader.SetUniformM4("modelView", renderableComponents[i].Entity.ModelView);
+                Shader.BasicShader.SetUniformM4("modelView", renderableComponents[i].Entity.ModelView);
 
-                shader.Enable();
+                Shader.BasicShader.Enable();
                 vao.Bind();
                 ibo.Bind();
                 Gl.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, (IntPtr)((i * 6) * sizeof(int)));
-                //Gl.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, IntPtr.Zero);
                 ibo.Unbind();
                 vao.Unbind();
-                shader.Disable();
+                Shader.BasicShader.Disable();
             }
         }
 

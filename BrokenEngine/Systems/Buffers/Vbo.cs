@@ -37,8 +37,8 @@ namespace BrokenEngine.Systems.Buffers
     {
         #region Properties
 
-        public uint MaxEntities { get; }
-        public int VertexSize { get; }
+        public uint MaxEntities { get { return maxEntities; } }
+        public int VertexSize { get { return vertexSize; } }
 
         #endregion
 
