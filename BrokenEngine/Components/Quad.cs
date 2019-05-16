@@ -18,10 +18,10 @@ namespace BrokenEngine.Components
                 Colors[i] = color;
             }
 
-            Vertices[0] = new Vec2(0-size.X, 0-size.Y);
-            Vertices[1] = new Vec2(0+size.X, 0-size.Y);
-            Vertices[2] = new Vec2(0+size.X, 0+size.Y);
-            Vertices[3] = new Vec2(0-size.X, 0+size.Y);
+            Vertices[0] = new Vec2(0- this.size.X, 0- this.size.Y);
+            Vertices[1] = new Vec2(0+ this.size.X, 0- this.size.Y);
+            Vertices[2] = new Vec2(0+ this.size.X, 0+ this.size.Y);
+            Vertices[3] = new Vec2(0- this.size.X, 0+ this.size.Y);
         }
     }
 }

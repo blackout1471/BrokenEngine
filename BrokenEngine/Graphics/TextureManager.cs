@@ -3,12 +3,12 @@ using BrokenEngine.Utils;
 
 namespace BrokenEngine.Graphics
 {
-    class TextureManager
+    public class TextureManager
     {
         #region Singleton
 
-        public TextureManager Instance { get; }
-        private TextureManager instance = null;
+        public static TextureManager Instance { get { if (instance == null) instance = new TextureManager(); return instance; } }
+        private static TextureManager instance = null;
         private TextureManager() { }
 
         #endregion

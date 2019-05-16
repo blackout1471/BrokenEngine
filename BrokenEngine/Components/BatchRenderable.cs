@@ -3,7 +3,7 @@ using BrokenEngine.Graphics;
 
 namespace BrokenEngine.Components
 {
-    public abstract class Renderable : BaseComponent
+    public abstract class BatchRenderable : BaseComponent
     {
         #region Properties
 
@@ -45,7 +45,6 @@ namespace BrokenEngine.Components
         private uint bufferOffset = 0;
         private Texture texture = null;
         private Vec2[,] textureOffsets = null;
-
 
     }
 }

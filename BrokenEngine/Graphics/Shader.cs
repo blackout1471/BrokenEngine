@@ -13,7 +13,8 @@ namespace BrokenEngine.Graphics
         /// <summary>
         /// Get the basicshader
         /// </summary>
-        public static Shader BasicShader { get { return basicShader; } }
+        public static Shader BasicShader { get { return basicShaders[0]; } }
+        public static Shader batchShader { get => basicShaders[1]; }
 
         #endregion
 
@@ -34,12 +35,12 @@ namespace BrokenEngine.Graphics
                 "void main()\n",
                 "{\n",
                     "gl_Position = pr_matrix * modelView * vec4(pos.xy, 0.0, 1.0);\n",
-                    "//gl_Position = vec4(pos.xy, 1.0, 1.0);\n",
 
                     "outColors = colors;\n",
                     "outTexturePos = texturepos;\n",
                     "outTextureId = textureId;\n",
-                "}\n" };
+                "}\n"
+        };
 
         private static string[] basicFragmentShaderSource = { "#version 330\n",
                 "in vec4 outColors;\n",
@@ -60,16 +61,58 @@ namespace BrokenEngine.Graphics
                     "gl_FragColor = finalColor;\n",
                 "}\n" };
 
+        private static string[] batchVertexShaderSource =
+        {
+            "#version 330\n",
+            "layout(location = 0) in vec2 pos;\n",
+            "layout(location = 1) in vec4 colors;\n",
+            "layout(location = 2) in vec2 texturepos;\n",
+            "layout(location = 3) in float textureId;\n",
+
+            "uniform mat4 pr_matrix;\n",
+            "uniform mat4 modelView = mat4(1.0);\n",
+            "uniform vec2 offsets[100];\n",
+
+            "out vec4 outColors;\n",
+            "out vec2 outTexturePos;\n",
+            "out float outTextureId;\n",
+
+            "void main()\n",
+            "{\n",
+                "gl_Position = pr_matrix * modelView * vec4(pos + offsets[gl_InstanceID], 0.0, 1.0);\n",
+                "outColors = colors;\n",
+                "outTexturePos = texturepos;\n",
+                "outTextureId = textureId;\n",
+            "}\n"
+        };
+
         #endregion
 
-        private static Shader basicShader;
+        private static Shader[] basicShaders;
 
         /// <summary>
         /// Load the default shaders
         /// </summary>
         public static void LoadDefaultShaders()
         {
-            basicShader = new Shader(basicVertexShaderSource, basicFragmentShaderSource);
+            basicShaders = new Shader[]
+            {
+                new Shader(basicVertexShaderSource, basicFragmentShaderSource),
+                new Shader(batchVertexShaderSource, basicFragmentShaderSource)
+            };
+        }
+
+        /// <summary>
+        /// Sets the same uniform matrix for all the basic shaders
+        /// </summary>
+        /// <param name="uniform"></param>
+        /// <param name="matrix"></param>
+        internal static void SetUniformsM4(string uniform, Matrix4f matrix)
+        {
+            for (int i = 0; i < basicShaders.Length; i++)
+            {
+                basicShaders[i].SetUniformM4(uniform, matrix);
+            }
         }
 
         #endregion
@@ -118,6 +161,16 @@ namespace BrokenEngine.Graphics
         {
             Enable();
             Gl.UniformMatrix4(GetUniform(uniname), false, matrix.Matrix);
+            Disable();
+        }
+
+        public void SetUniformVec2Array(string uniname, Vec2[] vector)
+        {
+            Enable();
+            unsafe
+            {
+                // Fix math class for unsafe compilling
+            }
             Disable();
         }
 

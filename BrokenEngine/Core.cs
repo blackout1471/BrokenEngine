@@ -4,13 +4,39 @@ using BrokenEngine.Utils;
 using BrokenEngine.Systems;
 using BrokenEngine.Components;
 using BrokenEngine.Systems.Renders;
+using BrokenEngine.Systems.Physics;
 using BrokenEngine.Graphics;
+using BrokenEngine.Maths;
 using System;
 
 namespace BrokenEngine
 {
     public abstract class Core
     {
+        #region Window Methods
+        /// <summary>
+        /// Set the window size
+        /// </summary>
+        /// <param name="fullScreen">Set if window should be fullscreen</param>
+        /// <param name="width">if 0 set to primary monitor width</param>
+        /// <param name="height">if 0 set to primary monitor height</param>
+        public void SetWindowSize(bool fullScreen, int width = 0, int height = 0)
+        {
+            window.SetSize(fullScreen, width, height);
+            Gl.Viewport(0, 0, window.Width, window.Height);
+            Shader.SetUniformsM4("pr_matrix", Matrix4f.Orthogonal(window.Width, 0, window.Height, 0, -1.0f, 1.0f));
+        }
+
+        /// <summary>
+        /// Sets the window title
+        /// </summary>
+        /// <param name="title"></param>
+        public void SetWindowTitle(string title)
+        {
+            window.SetTitle(title);
+        }
+
+        #endregion
 
         #region Variables
 
@@ -37,6 +63,8 @@ namespace BrokenEngine
 
             // Register the systems
             SystemManager.Instance.RegisterSystem(new Renderer2D());
+            SystemManager.Instance.RegisterSystem(new BoxCollisionSystem());
+            SystemManager.Instance.RegisterSystem(new BatchRenderer2D());
 
             // Start all the Systems
             EntityManager.Instance.StartEntities();

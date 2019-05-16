@@ -47,12 +47,14 @@ namespace BrokenEngine.Components
         /// <summary>
         /// The method which will be called at the start of the program
         /// </summary>
-        public abstract void Start();
+        protected internal abstract void Start();
 
         /// <summary>
         /// The method which will be called everyframe
         /// </summary>
-        public abstract void Update();
+        protected internal abstract void Update();
+
+        #region Transform methods
 
         /// <summary>
         /// Translate the entity in a direction
@@ -169,6 +171,10 @@ namespace BrokenEngine.Components
             return Matrix4f.Scale(CalculateScale()) * Matrix4f.RotateZ(CalculateRotation()) * Matrix4f.Translate(CalculateTranslation());
         }
 
+        #endregion
+
+        #region Component Methods
+
         /// <summary>
         /// Adds a component to the entity
         /// </summary>
@@ -239,6 +245,8 @@ namespace BrokenEngine.Components
 
             return comps.ToArray();
         }
+
+        #endregion
 
     }
 }

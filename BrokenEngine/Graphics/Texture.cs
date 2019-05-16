@@ -6,7 +6,7 @@ using BrokenEngine.Utils;
 
 namespace BrokenEngine.Graphics
 {
-    class Texture
+    public class Texture
     {
         #region Properties
 

@@ -7,17 +7,19 @@ namespace Test
     {
         public qualla()
         {
-        }
+            EntityName = "Qualla";
 
-        public override void Start()
-        {
             AddComponent(new Quad(new BrokenEngine.Maths.Vec2(20f, 20f), BrokenEngine.Graphics.Color.Red));
+            AddComponent(new BoxCollision2D(new BrokenEngine.Maths.Vec2(20, 20)));
 
-            SetPosition(new BrokenEngine.Maths.Vec2(100, 100));
-
+            SetPosition(new BrokenEngine.Maths.Vec2(200, 200));
         }
 
-        public override void Update()
+        protected override void Start()
+        {
+        }
+
+        protected override void Update()
         {
         }
     }

@@ -38,6 +38,7 @@ namespace BrokenEngine.Utils
             Render,
             IO,
             Time,
+            Physics,
             Game
         }
 
@@ -46,9 +47,9 @@ namespace BrokenEngine.Utils
         /// </summary>
         public enum DebugLevel
         {
-            Information = 15,
-            Warning = 14,
-            Error = 12
+            Information = ConsoleColor.DarkGreen,
+            Warning = ConsoleColor.DarkYellow,
+            Error = ConsoleColor.DarkRed
         }
 
         #endregion

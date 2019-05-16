@@ -175,8 +175,9 @@ namespace BrokenEngine.Application
 
             this.fullScreen = fullscreen;
 
-            // Sets the window size
+            // Sets the window size and the position in center
             Glfw.SetWindowSize(window, this.width, this.height);
+            Glfw.SetWindowPos(window, (mode.Width / 2) - this.width/2, (mode.Height / 2) - this.height / 2);
 
             Debug.Log("Window Size: " + width + " " + height, Debug.DebugLayer.Application);
         }

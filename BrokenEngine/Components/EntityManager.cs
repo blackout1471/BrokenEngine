@@ -40,6 +40,22 @@ namespace BrokenEngine.Components
         }
 
         /// <summary>
+        /// Gets a entity by its name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        internal Entity GetEntity(string name)
+        {
+            for (int i = 0; i < entities.Count; i++)
+            {
+                if (entities[i].EntityName == name)
+                    return entities[i];
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Get all entities with a specific component
         /// </summary>
         /// <typeparam name="CompType"></typeparam>

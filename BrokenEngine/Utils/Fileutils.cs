@@ -86,7 +86,7 @@ namespace BrokenEngine.Utils
             }
             catch (System.Exception e)
             {
-                Debug.Log(e.ToString(), Debug.DebugLayer.IO, Debug.DebugLevel.Error);
+                Debug.Log("Could not load image " + e.ToString(), Debug.DebugLayer.IO, Debug.DebugLevel.Error);
             }
 
             return img;

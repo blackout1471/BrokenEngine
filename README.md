@@ -13,6 +13,9 @@ OpenGl Net: https://github.com/luca-piccioni/OpenGL.Net
 
 Glfw Dll: https://www.glfw.org/
 
+## Usage
+See the Test solution
+
 ## TODO:
 ### Application Layer
 - [x] Window
@@ -26,13 +29,13 @@ Glfw Dll: https://www.glfw.org/
 - [x] Shaders
 - [ ] BatchRenderer
 - [x] BasicRenderer
-- [ ] Collision system between 2 entities
+- [x] Collision system between 2 entities
 - [ ] Collision system for all entities
 - [x] Vao(Vertex Array Object) Buffer
 - [x] Vbo(Vertex Buffer Object) Buffer
 - [x] Ibo(Index Buffer Object) Buffer
 ### Components
-- [ ] Components
+- [x] Components
 - [x] Entities
 - [x] EntityManager
 ### Maths
@@ -43,7 +46,7 @@ Glfw Dll: https://www.glfw.org/
 - [x] Shader utilities
 - [x] Debug utilities
 ### Core
-- [ ] Core abstraction
+- [x] Core abstraction
 - [x] Time module
 ## Uml
 ![alt text](https://github.com/blackout1471/BrokenEngine/blob/master/BrokenEngine.jpg "Uml")

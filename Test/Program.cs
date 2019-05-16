@@ -1,15 +1,22 @@
 using BrokenEngine;
+using BrokenEngine.Graphics;
 
 namespace Test
 {
     class Program : Core
     {
-        quadi a = new quadi();
-        qualla b = new qualla();
 
+        
         protected override void OnStart()
         {
+            SetWindowSize(false, 800, 600);
 
+            TextureManager.Instance.LoadTexture("Duck", new Texture("..//..//Img/duck.png"));
+
+            qualla b = new qualla();
+            quadi a = new quadi();
+
+            Particle par = new Particle();
         }
 
         protected override void OnUpdate()

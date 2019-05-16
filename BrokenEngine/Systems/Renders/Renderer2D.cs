@@ -32,8 +32,6 @@ namespace BrokenEngine.Systems.Renders
             vbo.PushLayout(new BufferLayout(2, VertexAttribType.Float, false)); // tx, ty
             vbo.PushLayout(new BufferLayout(1, VertexAttribType.Float, false)); // texture id
 
-            // TEST ORTOGONAL
-            Shader.BasicShader.SetUniformM4("pr_matrix", Matrix4f.Orthogonal(800f, 0f, 600f, 0f, -1.0f, 1.0f));
         }
 
         /// <summary>
@@ -121,7 +119,7 @@ namespace BrokenEngine.Systems.Renders
             }
 
             if (flushed != 0)
-                Debug.Log("Flushed " + flushed + " Entities", Debug.DebugLayer.Render, Debug.DebugLevel.Information);
+                Debug.Log("Renderer Flushed " + flushed + " Entities", Debug.DebugLayer.Render, Debug.DebugLevel.Information);
         }
 
         internal void UpdateData() { throw new System.NotImplementedException(); }
@@ -136,6 +134,12 @@ namespace BrokenEngine.Systems.Renders
             if (renderableComponents.Length == 0)
                 return;
 
+            TextureManager.Instance.BindTextureArrayToShader("textureArray", Shader.BasicShader);
+            TextureManager.Instance.BindTextureArray();
+
+            Gl.Enable(EnableCap.Blend);
+            Gl.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+
             for (int i = 0; i < renderableComponents.Length; i++)
             {
                 if (!renderableComponents[i].ComponentEnabled)
@@ -148,6 +152,8 @@ namespace BrokenEngine.Systems.Renders
 
                 uint quadsCount = (uint)(renderableComponents[i].Vertices.Length / 4);
 
+                // Draw
+                
                 Shader.BasicShader.Enable();
                 vao.Bind();
                 ibo.Bind();
@@ -155,7 +161,9 @@ namespace BrokenEngine.Systems.Renders
                 ibo.Unbind();
                 vao.Unbind();
                 Shader.BasicShader.Disable();
+                
             }
+            TextureManager.Instance.UnbindTextureArray();
         }
 
         internal override void Update()
