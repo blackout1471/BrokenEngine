@@ -65,24 +65,21 @@ namespace BrokenEngine.Graphics
         {
             "#version 330\n",
             "layout(location = 0) in vec2 pos;\n",
-            "layout(location = 1) in vec4 colors;\n",
-            "layout(location = 2) in vec2 texturepos;\n",
-            "layout(location = 3) in float textureId;\n",
 
             "uniform mat4 pr_matrix;\n",
-            "uniform mat4 modelView = mat4(1.0);\n",
-            "uniform vec2 offsets[100];\n",
-
-            "out vec4 outColors;\n",
-            "out vec2 outTexturePos;\n",
-            "out float outTextureId;\n",
 
             "void main()\n",
             "{\n",
-                "gl_Position = pr_matrix * modelView * vec4(pos + offsets[gl_InstanceID], 0.0, 1.0);\n",
-                "outColors = colors;\n",
-                "outTexturePos = texturepos;\n",
-                "outTextureId = textureId;\n",
+                "gl_Position = pr_matrix * vec4(pos, 1.0, 1.0);\n",
+            "}\n"
+        };
+
+        private static string[] batchFragmentShaderSource =
+        {
+            "#version 330\n",
+            "void main()\n",
+            "{\n",
+                "gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n",
             "}\n"
         };
 
@@ -98,7 +95,7 @@ namespace BrokenEngine.Graphics
             basicShaders = new Shader[]
             {
                 new Shader(basicVertexShaderSource, basicFragmentShaderSource),
-                new Shader(batchVertexShaderSource, basicFragmentShaderSource)
+                new Shader(batchVertexShaderSource, batchFragmentShaderSource)
             };
         }
 
@@ -140,14 +137,14 @@ namespace BrokenEngine.Graphics
         /// <returns></returns>
         private int GetUniform(string name)
         {
-            if (locationCache.ContainsKey(name))
-                return locationCache[name];
+            //if (locationCache.ContainsKey(name))
+            //    return locationCache[name];
 
             int res = Gl.GetUniformLocation(id, name);
             if (res == -1)
                 Debug.Log("Couldn't find uniform " + name, Debug.DebugLayer.Shaders, Debug.DebugLevel.Warning);
-            else
-                locationCache.Add(name, res);
+            //else
+            //    locationCache.Add(name, res);
 
             return res;
         }
@@ -161,16 +158,6 @@ namespace BrokenEngine.Graphics
         {
             Enable();
             Gl.UniformMatrix4(GetUniform(uniname), false, matrix.Matrix);
-            Disable();
-        }
-
-        public void SetUniformVec2Array(string uniname, Vec2[] vector)
-        {
-            Enable();
-            unsafe
-            {
-                // Fix math class for unsafe compilling
-            }
             Disable();
         }
 

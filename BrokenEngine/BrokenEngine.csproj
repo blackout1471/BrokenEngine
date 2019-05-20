@@ -76,9 +76,7 @@
     <Compile Include="Components\BoxCollision2D.cs" />
     <Compile Include="Components\Entity.cs" />
     <Compile Include="Components\EntityManager.cs" />
-    <Compile Include="Components\ParticleGenerator.cs" />
     <Compile Include="Components\Quad.cs" />
-    <Compile Include="Components\BatchRenderable.cs" />
     <Compile Include="Components\Renderable.cs" />
     <Compile Include="Components\Sprite.cs" />
     <Compile Include="Core.cs" />
@@ -95,7 +93,7 @@
     <Compile Include="Systems\Buffers\Vao.cs" />
     <Compile Include="Systems\Buffers\Vbo.cs" />
     <Compile Include="Systems\Physics\BoxCollisionSystem.cs" />
-    <Compile Include="Systems\Renders\BatchRenderer2D.cs" />
+    <Compile Include="Systems\Renders\ParticleRenderer.cs" />
     <Compile Include="Systems\Renders\Renderer2D.cs" />
     <Compile Include="Systems\SystemManager.cs" />
     <Compile Include="Utils\Debug.cs" />

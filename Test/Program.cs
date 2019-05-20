@@ -6,7 +6,6 @@ namespace Test
     class Program : Core
     {
 
-        
         protected override void OnStart()
         {
             SetWindowSize(false, 800, 600);
@@ -15,8 +14,6 @@ namespace Test
 
             qualla b = new qualla();
             quadi a = new quadi();
-
-            Particle par = new Particle();
         }
 
         protected override void OnUpdate()

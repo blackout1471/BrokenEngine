@@ -13,12 +13,14 @@ namespace BrokenEngine.Systems.Buffers
         public VertexAttribType dataType; // Which datatype should the layout use
         public bool dataNormalised; // is the data normalised
         public int datasize; // The size of the datatype in bytes
+        public int shaderLocation;
 
-        public BufferLayout(int countData, VertexAttribType dataType, bool normalised)
+        public BufferLayout(int countData, VertexAttribType dataType, bool normalised, int shaderLocation=-1)
         {
             this.countData = countData;
             this.dataType = dataType;
             this.dataNormalised = normalised;
+            this.shaderLocation = shaderLocation;
 
             //TODO: Add more
             switch (dataType)
@@ -89,7 +91,12 @@ namespace BrokenEngine.Systems.Buffers
             uint pointerData = 0;
             for (int i = 0; i < bufferLayouts.Count; i++)
             {
-                Gl.VertexAttribPointer((uint)i, bufferLayouts[i].countData, bufferLayouts[i].dataType, bufferLayouts[i].dataNormalised, vertexSize, (IntPtr)pointerData);
+                int shaderlocation = i;
+
+                if (bufferLayouts[i].shaderLocation != -1)
+                    shaderlocation = bufferLayouts[i].shaderLocation;
+
+                Gl.VertexAttribPointer((uint)shaderlocation, bufferLayouts[i].countData, bufferLayouts[i].dataType, bufferLayouts[i].dataNormalised, vertexSize, (IntPtr)pointerData);
                 pointerData += (uint)(bufferLayouts[i].countData * bufferLayouts[i].datasize);
                 Gl.EnableVertexAttribArray((uint)i);
             }

@@ -1,6 +1,7 @@
 ﻿using BrokenEngine.Components;
 using BrokenEngine.Application;
 using BrokenEngine.Maths;
+using BrokenEngine.Utils;
 
 namespace Test
 {
@@ -23,7 +24,7 @@ namespace Test
 
         private void Collision()
         {
-            
+            Debug.Log("Colidded with square");
         }
 
         protected override void Update()
