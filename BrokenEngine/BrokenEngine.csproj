@@ -76,7 +76,9 @@
     <Compile Include="Components\BoxCollision2D.cs" />
     <Compile Include="Components\Entity.cs" />
     <Compile Include="Components\EntityManager.cs" />
+    <Compile Include="Components\ParticleComponent.cs" />
     <Compile Include="Components\Quad.cs" />
+    <Compile Include="Components\InstancedRenderable.cs" />
     <Compile Include="Components\Renderable.cs" />
     <Compile Include="Components\Sprite.cs" />
     <Compile Include="Core.cs" />

@@ -98,7 +98,7 @@ namespace BrokenEngine.Systems.Buffers
 
                 Gl.VertexAttribPointer((uint)shaderlocation, bufferLayouts[i].countData, bufferLayouts[i].dataType, bufferLayouts[i].dataNormalised, vertexSize, (IntPtr)pointerData);
                 pointerData += (uint)(bufferLayouts[i].countData * bufferLayouts[i].datasize);
-                Gl.EnableVertexAttribArray((uint)i);
+                Gl.EnableVertexAttribArray((uint)shaderlocation);
             }
         }
 

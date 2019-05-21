@@ -11,9 +11,9 @@ namespace BrokenEngine.Graphics
 
         #region Properties
         /// <summary>
-        /// Get the basicshader
+        /// Get the defaultShaders
         /// </summary>
-        public static Shader BasicShader { get { return basicShaders[0]; } }
+        public static Shader BasicShader { get => basicShaders[0]; }
         public static Shader batchShader { get => basicShaders[1]; }
 
         #endregion
@@ -65,21 +65,29 @@ namespace BrokenEngine.Graphics
         {
             "#version 330\n",
             "layout(location = 0) in vec2 pos;\n",
+            "layout(location = 1) in vec3 instancePos;\n",
+            "layout(location = 2) in vec4 colorInstance;\n",
 
             "uniform mat4 pr_matrix;\n",
 
+            "out vec4 outColor;\n",
+
             "void main()\n",
             "{\n",
-                "gl_Position = pr_matrix * vec4(pos, 1.0, 1.0);\n",
+                "vec4 finalPos = vec4(instancePos.xy, 0.0, 0.0) + vec4(pos * instancePos.z, 1.0, 1.0);\n",
+                "gl_Position = pr_matrix * finalPos;\n",
+                "outColor = colorInstance;\n",
             "}\n"
         };
 
         private static string[] batchFragmentShaderSource =
         {
             "#version 330\n",
+            "in vec4 outColor;\n",
+
             "void main()\n",
             "{\n",
-                "gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n",
+                "gl_FragColor = outColor;\n",
             "}\n"
         };
 
@@ -115,7 +123,7 @@ namespace BrokenEngine.Graphics
         #endregion
 
 
-        private static Dictionary<string, int> locationCache = new Dictionary<string, int>();
+        private Dictionary<string, int> locationCache = new Dictionary<string, int>();
 
         private uint id;
         private bool enabled;
@@ -137,14 +145,14 @@ namespace BrokenEngine.Graphics
         /// <returns></returns>
         private int GetUniform(string name)
         {
-            //if (locationCache.ContainsKey(name))
-            //    return locationCache[name];
+            if (locationCache.ContainsKey(name))
+                return locationCache[name];
 
             int res = Gl.GetUniformLocation(id, name);
             if (res == -1)
                 Debug.Log("Couldn't find uniform " + name, Debug.DebugLayer.Shaders, Debug.DebugLevel.Warning);
-            //else
-            //    locationCache.Add(name, res);
+            else
+                locationCache.Add(name, res);
 
             return res;
         }
@@ -192,7 +200,7 @@ namespace BrokenEngine.Graphics
         {
             if (enabled)
             {
-                Gl.UseProgram(id);
+                Gl.UseProgram(0);
                 enabled = false;
             }
         }
