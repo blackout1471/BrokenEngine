@@ -14,6 +14,7 @@ namespace Test
             AddComponent(new BoxCollision2D("Qualla", new Vec2(100, 100), Collision));
             
             SetPosition(new Vec2(50, 50));
+
         }
 
         protected override void Start()

@@ -7,9 +7,9 @@ namespace Test
 {
     public class But : Button
     {
-        public But() : base(new Vec2(200, 200), Color.Red)
+        public But() : base(new Vec2(200, 200), Color.Green)
         {
-            SetPosition(new Vec2(200, 200));
+            SetPosition(new Vec2(500, 200));
         }
 
         protected override void Start()
