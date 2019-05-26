@@ -46,6 +46,14 @@ namespace BrokenEngine.Graphics
             LoadImage();
         }
 
+        public Texture(Bitmap data)
+        {
+            image = data;
+            width = image.Width;
+            height = image.Height;
+            image.RotateFlip(RotateFlipType.Rotate180FlipX);
+        }
+
         /// <summary>
         /// Loads a image from the path given to Texture object
         /// </summary>

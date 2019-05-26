@@ -16,6 +16,7 @@ namespace BrokenEngine.Graphics
         #region Variables
 
         private Dictionary<string, Texture> textures = new Dictionary<string, Texture>();
+        private Dictionary<string, Font> fonts = new Dictionary<string, Font>();
 
         private Tao textureArray = new Tao(0);
 
@@ -43,6 +44,25 @@ namespace BrokenEngine.Graphics
         }
 
         /// <summary>
+        /// Load fonts
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="font"></param>
+        public void LoadFont(string name, Font font)
+        {
+            if (fonts.ContainsKey(name))
+            {
+                Debug.Log("Can't add font with the same name", Debug.DebugLayer.Textures, Debug.DebugLevel.Warning);
+                return;
+            }
+
+            font.Texture.Id = textureArray.Upload(font.Texture);
+            fonts.Add(name, font);
+
+            Debug.Log("Font has been added with name: " + name, Debug.DebugLayer.Textures, Debug.DebugLevel.Information);
+        }
+
+        /// <summary>
         /// Get a texture from a name
         /// </summary>
         /// <param name="name"></param>
@@ -55,6 +75,21 @@ namespace BrokenEngine.Graphics
             }
 
             Debug.Log("Could'nt find texture with name: " + name, Debug.DebugLayer.Textures, Debug.DebugLevel.Warning);
+
+            return null;
+        }
+
+        /// <summary>
+        /// Get a font from a name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        internal Font GetFont(string name)
+        {
+            if (fonts.ContainsKey(name))
+                return fonts[name];
+
+            Debug.Log("Could'nt find font with name: " + name, Debug.DebugLayer.Textures, Debug.DebugLevel.Warning);
 
             return null;
         }

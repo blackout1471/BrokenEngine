@@ -83,8 +83,10 @@
     <Compile Include="Components\InstancedRenderable.cs" />
     <Compile Include="Components\Renderable.cs" />
     <Compile Include="Components\Sprite.cs" />
+    <Compile Include="Components\Text.cs" />
     <Compile Include="Core.cs" />
     <Compile Include="Graphics\Color.cs" />
+    <Compile Include="Graphics\Font.cs" />
     <Compile Include="Graphics\Shader.cs" />
     <Compile Include="Graphics\Tao.cs" />
     <Compile Include="Graphics\Texture.cs" />

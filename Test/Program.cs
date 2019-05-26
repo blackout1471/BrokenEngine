@@ -12,6 +12,7 @@ namespace Test
             SetWindowSize(false, 800, 600);
 
             TextureManager.Instance.LoadTexture("Duck", new Texture("..//..//Img/duck.png"));
+            TextureManager.Instance.LoadFont("defaultFont", new Font("..//..//Img/Bebas.ttf"));
 
             qualla b = new qualla();
             quadi a = new quadi();
