@@ -1,7 +1,6 @@
 ﻿using OpenGL;
 using BrokenEngine.Systems.Buffers;
 using BrokenEngine.Graphics;
-using BrokenEngine.Maths;
 using BrokenEngine.Components;
 using BrokenEngine.Utils;
 using System.Collections.Generic;

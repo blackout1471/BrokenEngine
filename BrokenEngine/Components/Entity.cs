@@ -23,13 +23,15 @@ namespace BrokenEngine.Components
         /// </summary>
         internal Matrix4f ModelView { get { return CalculateModelView(); } }
 
+        internal string Name { get => name; set => name = value; }
+
         #endregion
 
         #region Variables
 
         private string name = "Entity";
         private bool isEnabled = true;
-        private List<BaseComponent> components = new List<BaseComponent>();
+        internal List<BaseComponent> components = new List<BaseComponent>();
         private List<float> rotations = new List<float>();
         private List<Vec2> positions = new List<Vec2>();
         private List<Vec2> scales = new List<Vec2>();
@@ -97,10 +99,10 @@ namespace BrokenEngine.Components
         /// Sets the scale for the entity
         /// </summary>
         /// <param name="position"></param>
-        protected void SetScale(Vec2 position)
+        protected void SetScale(Vec2 Scale)
         {
             scales.Clear();
-            scales.Add(position);
+            scales.Add(Scale);
         }
 
         /// <summary>
@@ -179,7 +181,7 @@ namespace BrokenEngine.Components
         /// Adds a component to the entity
         /// </summary>
         /// <param name="component"></param>
-        protected void AddComponent(BaseComponent component)
+        protected virtual void AddComponent(BaseComponent component)
         {
             if (component.GetType() == typeof(Renderable) || component.GetType().IsSubclassOf(typeof(Renderable)))
             {

@@ -63,8 +63,9 @@ namespace BrokenEngine
 
             // Register the systems
             SystemManager.Instance.RegisterSystem(new Renderer2D());
-            SystemManager.Instance.RegisterSystem(new BoxCollisionSystem());
             SystemManager.Instance.RegisterSystem(new ParticleRenderer());
+            SystemManager.Instance.RegisterSystem(new BoxCollisionSystem());
+            SystemManager.Instance.RegisterSystem(new HoverCollisionSystem());
 
             // Start all the Systems
             EntityManager.Instance.StartEntities();

@@ -24,10 +24,11 @@ See the Test solution
 - [x] Textures
 - [x] TextureManager
 - [x] Texture Array Object
+- [ ] Ui
 ### Systems
 - [x] System Manager
 - [x] Shaders
-- [ ] BatchRenderer
+- [ ] Particle Renderer
 - [x] BasicRenderer
 - [x] Collision system between 2 entities
 - [ ] Collision system for all entities
