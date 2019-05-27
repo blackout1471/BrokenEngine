@@ -13,10 +13,10 @@ namespace BrokenEngine.Components
             Colors = new Color[4];
             Vertices = new Vec2[4];
 
-            for (int i = 0; i < Colors.Length; i++)
-            {
-                Colors[i] = color;
-            }
+            Colors[0] = color;
+            Colors[1] = color;
+            Colors[2] = color;
+            Colors[3] = color;
 
             Vertices[0] = new Vec2(0- this.size.X, 0- this.size.Y);
             Vertices[1] = new Vec2(0+ this.size.X, 0- this.size.Y);

@@ -18,27 +18,41 @@ namespace BrokenEngine.Components
             Texture = currentFont.Texture;
 
             // Get start center
-            float xStartCenter = (text.Length * textSize) + (text.Length * xPadding);
-            float yStartCenter = 0f;
+            float xStartCenter = -((text.Length * textSize)/2);
 
             for (int i = 0; i < text.Length; i++)
             {
                 Font.Glyph curGlyph = currentFont.GetGlyph(text[i]);
+
+                // Get glyph position in texture
+                float xpos, ypos, xff, yff;
+                if (curGlyph.xpos == 0)
+                    xpos = 0;
+                else
+                    xpos = curGlyph.xpos / (float)Tao.LayerWidth;
+
+                if (curGlyph.ypos == 0)
+                    ypos = 1.0f;
+                else
+                    ypos = 1.0f - (curGlyph.ypos / (float)Tao.LayerHeight);
+
+                xff = (float)curGlyph.xsize / (float)Tao.LayerWidth;
+                yff = (float)curGlyph.ysize / ((float)Tao.LayerHeight + currentFont.FreeYSpace);
 
                 Colors[i * 4 + 0] = color;
                 Colors[i * 4 + 1] = color;
                 Colors[i * 4 + 2] = color;
                 Colors[i * 4 + 3] = color;
 
-                Vertices[i * 4 + 0] = new Vec2(-textSize, -textSize);
-                Vertices[i * 4 + 1] = new Vec2(textSize, -textSize);
-                Vertices[i * 4 + 2] = new Vec2(textSize, textSize);
-                Vertices[i * 4 + 3] = new Vec2(-textSize, textSize);
+                Vertices[i * 4 + 0] = new Vec2(-textSize + (textSize * i) + xStartCenter, -textSize);
+                Vertices[i * 4 + 1] = new Vec2(textSize + (textSize * i) + xStartCenter, -textSize);
+                Vertices[i * 4 + 2] = new Vec2(textSize + (textSize * i) + xStartCenter, textSize);
+                Vertices[i * 4 + 3] = new Vec2(-textSize + (textSize * i) + xStartCenter, textSize);
 
-                TextureOffsets[i, 0] = new Vec2(curGlyph.xpos, curGlyph.ypos);
-                TextureOffsets[i, 1] = new Vec2(curGlyph.xpos + curGlyph.xsize, curGlyph.ypos);
-                TextureOffsets[i, 2] = new Vec2(curGlyph.xpos + curGlyph.xsize, curGlyph.ypos + curGlyph.ysize);
-                TextureOffsets[i, 3] = new Vec2(curGlyph.xpos, curGlyph.ypos + curGlyph.ysize);
+                TextureOffsets[i, 0] = new Vec2(xpos, ypos - yff);
+                TextureOffsets[i, 1] = new Vec2(xpos + xff, ypos - yff);
+                TextureOffsets[i, 2] = new Vec2(xpos + xff, ypos);
+                TextureOffsets[i, 3] = new Vec2(xpos, ypos);
             }
         }
 

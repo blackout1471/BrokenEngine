@@ -59,8 +59,6 @@ namespace BrokenEngine.Systems.Renders
         {
             renderableComponents = EntityManager.Instance.GetEntitiesComponents<Renderable>();
 
-            uint flushed = 0;
-
             if (renderableComponents.Length == 0)
                 return;
 
@@ -85,11 +83,13 @@ namespace BrokenEngine.Systems.Renders
                     vertexData.Add(renderableComponents[i].Colors[j].B);
                     vertexData.Add(renderableComponents[i].Colors[j].A);
 
+                    int currentQuad = j / 4;
+
                     // Tx Ty
                     if (renderableComponents[i].TextureOffsets != null)
                     {
-                        vertexData.Add(renderableComponents[i].TextureOffsets[0, j].X);
-                        vertexData.Add(renderableComponents[i].TextureOffsets[0, j].Y);
+                        vertexData.Add(renderableComponents[i].TextureOffsets[currentQuad, j % 4].X);
+                        vertexData.Add(renderableComponents[i].TextureOffsets[currentQuad, j % 4].Y);
                     }
                     else
                     {
@@ -99,7 +99,7 @@ namespace BrokenEngine.Systems.Renders
 
 
                     // Texture id
-                    if (renderableComponents[i].Texture == null)
+                    if (renderableComponents[i].Texture == null || renderableComponents[i].TextureOffsets[currentQuad, j % 4].X == -1)
                         vertexData.Add(1024);
                     else
                         vertexData.Add(renderableComponents[i].Texture.Id);
@@ -111,14 +111,13 @@ namespace BrokenEngine.Systems.Renders
                 Gl.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)lastEntityOffset, (uint)(renderableComponents[i].Vertices.Length * vbo.VertexSize), vertexData.ToArray());
                 vbo.Unbind();
 
+                Debug.Log("Flushed 1 Entity with " + renderableComponents[i].Vertices.Length.ToString() + " Vertices at bufferLayout " + lastEntityOffset, Debug.DebugLayer.Render, Debug.DebugLevel.Information);
+
                 renderableComponents[i].IsSubmitted = true;
                 lastEntityOffset += (uint)(renderableComponents[i].Vertices.Length * vbo.VertexSize);
 
-                flushed += 1;
             }
 
-            if (flushed != 0)
-                Debug.Log("Renderer Flushed " + flushed + " Entities", Debug.DebugLayer.Render, Debug.DebugLevel.Information);
         }
 
         internal void UpdateData() { throw new System.NotImplementedException(); }
@@ -139,6 +138,8 @@ namespace BrokenEngine.Systems.Renders
             Gl.Enable(EnableCap.Blend);
             Gl.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
+            uint currentIndicieCount = 0;
+
             for (int i = 0; i < renderableComponents.Length; i++)
             {
                 if (!renderableComponents[i].ComponentEnabled)
@@ -156,11 +157,17 @@ namespace BrokenEngine.Systems.Renders
                 Shader.BasicShader.Enable();
                 vao.Bind();
                 ibo.Bind();
-                Gl.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, (IntPtr)((i * (6 * quadsCount)) * sizeof(int)));
+                //Gl.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, (IntPtr)((i * (6 * quadsCount)) * sizeof(int)));
+                for (int j = 0; j < quadsCount; j++)
+                {
+                    Gl.DrawElements(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, (IntPtr)(currentIndicieCount + (j * 6 * sizeof(int))));
+                }
+
                 ibo.Unbind();
                 vao.Unbind();
                 Shader.BasicShader.Disable();
-                
+
+                currentIndicieCount += quadsCount * 6 * sizeof(int);
             }
             TextureManager.Instance.UnbindTextureArray();
         }

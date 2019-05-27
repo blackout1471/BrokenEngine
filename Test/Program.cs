@@ -16,7 +16,6 @@ namespace Test
 
             qualla b = new qualla();
             quadi a = new quadi();
-            But c = new But();
 
         }
 
