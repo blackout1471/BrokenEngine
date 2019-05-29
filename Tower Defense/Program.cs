@@ -1,5 +1,6 @@
 using BrokenEngine;
 using BrokenEngine.Graphics;
+using Tower_Defense.GUI;
 
 namespace Tower_Defense
 {
@@ -16,7 +17,10 @@ namespace Tower_Defense
             SetWindowTitle("Tower Defense - Broken Engine");
 
             // Load Fonts
-            TextureManager.Instance.LoadFont("GameFont", new Font("..//..//Assets/Fonts/GameFont.ttf"));
+            TextureManager.Instance.LoadFont("GameFont", new Font("..//..//Assets/Fonts/Bebas.ttf"));
+
+            // Load UI
+            UIManager.Instance.Initialise();
         }
 
         protected override void OnUpdate()

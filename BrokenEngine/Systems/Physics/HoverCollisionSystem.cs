@@ -26,6 +26,9 @@ namespace BrokenEngine.Systems.Physics
             {
                 HoverCollisionComponent curComp = collisionsComponents[i];
 
+                if (!curComp.Entity.EntityEnabled)
+                    continue;
+
                 if (!curComp.ComponentEnabled)
                     continue;
 

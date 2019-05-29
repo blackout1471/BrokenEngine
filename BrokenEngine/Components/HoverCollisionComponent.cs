@@ -13,7 +13,7 @@ namespace BrokenEngine.Components
         internal CollisionFunc CollisionFunctionEnter { get => collisionFuncEnter; }
         internal CollisionFunc CollisionFunctionExit { get => collisionFuncExit; }
         internal Vec2 Size { get => size; }
-        internal bool IsHovering { get => isHovering; set => isHovering = value; }
+        public bool IsHovering { get => isHovering; internal set => isHovering = value; }
         #endregion
 
         /// <summary>

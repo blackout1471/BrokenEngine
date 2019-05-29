@@ -13,6 +13,8 @@ namespace BrokenEngine.Components
         /// </summary>
         public string EntityName { internal get { return name; } set { name = value; } }
 
+        public string Tag { get { return tag; } protected set { tag = value; } }
+
         /// <summary>
         /// Whether the entity is enabled or not
         /// </summary>
@@ -30,6 +32,7 @@ namespace BrokenEngine.Components
         #region Variables
 
         private string name = "Entity";
+        private string tag = "Entity";
         private bool isEnabled = true;
         internal List<BaseComponent> components = new List<BaseComponent>();
         private List<float> rotations = new List<float>();

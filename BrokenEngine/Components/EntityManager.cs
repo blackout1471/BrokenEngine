@@ -1,15 +1,24 @@
 ﻿using System.Collections.Generic;
+using BrokenEngine.Utils;
 
 namespace BrokenEngine.Components
 {
     public class EntityManager
     {
+
         #region Singleton
 
         /// <summary>
         /// The instance of the EntityManager
         /// </summary>
-        internal static EntityManager Instance { get { if (instance == null) instance = new EntityManager(); return instance; }}
+        public static EntityManager Instance { get
+            {
+                if (instance == null)
+                    instance = new EntityManager();
+                return instance;
+            }
+        }
+
         private static EntityManager instance = null;
         private EntityManager() { }
 
@@ -34,7 +43,7 @@ namespace BrokenEngine.Components
         /// Get all the entities
         /// </summary>
         /// <returns></returns>
-        internal Entity[] GetEntities()
+        public Entity[] GetEntities()
         {
             return entities.ToArray();
         }
@@ -72,6 +81,30 @@ namespace BrokenEngine.Components
             }
 
             return resEntities.ToArray();
+        }
+
+        /// <summary>
+        /// Get all the entities with a tag
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        public Entity[] GetEntitiesWithTags(string tag)
+        {
+            if (tag == "" || tag == null)
+            {
+                Debug.Log("Cannot have tag with nothing or null", Debug.DebugLayer.Entity, Debug.DebugLevel.Warning);
+                return null;
+            }
+
+            List<Entity> ent = new List<Entity>();
+
+            for (int i = 0; i < entities.Count; i++)
+            {
+                if (entities[i].Tag == tag)
+                    ent.Add(entities[i]);
+            }
+
+            return ent.ToArray();
         }
 
         /// <summary>

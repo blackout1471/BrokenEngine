@@ -142,18 +142,24 @@ namespace BrokenEngine.Systems.Renders
 
             for (int i = 0; i < renderableComponents.Length; i++)
             {
-                if (!renderableComponents[i].ComponentEnabled)
-                    continue;
-
-                if (!renderableComponents[i].Entity.EntityEnabled)
-                    continue;
 
                 Shader.BasicShader.SetUniformM4("modelView", renderableComponents[i].Entity.ModelView);
 
                 uint quadsCount = (uint)(renderableComponents[i].Vertices.Length / 4);
 
+                if (!renderableComponents[i].ComponentEnabled)
+                {
+                    currentIndicieCount += quadsCount * 6 * sizeof(int);
+                    continue;
+                }
+
+                if (!renderableComponents[i].Entity.EntityEnabled)
+                {
+                    currentIndicieCount += quadsCount * 6 * sizeof(int);
+                    continue;
+                }
+
                 // Draw
-                
                 Shader.BasicShader.Enable();
                 vao.Bind();
                 ibo.Bind();

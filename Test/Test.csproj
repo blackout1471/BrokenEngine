@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Img\Bebas.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Img\duck.png" />
