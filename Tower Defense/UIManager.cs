@@ -45,10 +45,12 @@ namespace Tower_Defense
 
         public void Initialise()
         {
-            LoadMapImg();
+            LoadTextureImgs();
+            EditorManager.Instance.Initialise();
 
             InitialiseSettings();
             InitialiseEditorMenu();
+            InitialiseEditorUI();
 
             HideAll();
 
@@ -59,7 +61,7 @@ namespace Tower_Defense
         /// <summary>
         /// Load all the map img's
         /// </summary>
-        private void LoadMapImg()
+        private void LoadTextureImgs()
         {
             string[] mapFiles = Directory.GetFiles(mapFolderDest);
             mapCount = mapFiles.Length;
@@ -69,6 +71,12 @@ namespace Tower_Defense
                 Texture curMap = new Texture(mapFiles[i]);
                 TextureManager.Instance.LoadTexture("Map" + i, curMap);
             }
+
+            Texture nodeButtonText = new Texture("..//..//Assets/Img/NodeButtonImg.png");
+            Texture areaButtonText = new Texture("..//..//Assets/Img/AreaButtonImg.png");
+
+            TextureManager.Instance.LoadTexture("NodeButtonTexture", nodeButtonText);
+            TextureManager.Instance.LoadTexture("AreaButtonTexture", areaButtonText);
         }
 
         /// <summary>
@@ -80,7 +88,7 @@ namespace Tower_Defense
             MenuButton playButton = new MenuButton(startpos - (new Vec2(0, buttonSize.Y) * 1) - (yPadding * 1), buttonSize, textColor, "Play", bgColor, "MainMenu", HideAll);
             MenuButton editorButton = new MenuButton(startpos - (new Vec2(0, buttonSize.Y) * 2) - (yPadding * 2), buttonSize, textColor, "Editor", bgColor, "MainMenu", ShowEditorMenu);
             MenuButton Settings = new MenuButton(startpos - (new Vec2(0, buttonSize.Y) * 3) - (yPadding * 3), buttonSize, textColor, "Settings", bgColor, "MainMenu", ShowSettings);
-            MenuButton Exit = new MenuButton(startpos - (new Vec2(0, buttonSize.Y) * 4) - (yPadding * 4), buttonSize, textColor, "Exit", bgColor, "MainMenu", HideAll);
+            MenuButton Exit = new MenuButton(startpos - (new Vec2(0, buttonSize.Y) * 4) - (yPadding * 4), buttonSize, textColor, "Exit", bgColor, "MainMenu", Program.ExitGame);
         }
 
         public void InitialiseEditorMenu()
@@ -89,8 +97,16 @@ namespace Tower_Defense
 
             for (int i = 0; i < mapCount; i++)
             {
-                MapButton curButton = new MapButton("Map" + i, mapButtonSize, mapButtonSize * (i + 1), "EditorMenu", null);
+                MapButton curButton = new MapButton("Map" + i, mapButtonSize, mapButtonSize * (i + 1), "EditorMenu");
             }
+        }
+
+        public void InitialiseEditorUI()
+        {
+            NodeButton node = new NodeButton("NodeButtonTexture", new Vec2(100, 50), new Vec2(100, 50), "EditorUI", NodeType.PathNode);
+            NodeButton area = new NodeButton("AreaButtonTexture", new Vec2(100, 50), new Vec2(200, 50), "EditorUI", NodeType.AreaNode);
+            MenuButton back = new MenuButton(new Vec2(650, 30), new Vec2(75, 25), textColor, "Back", bgColor, "EditorUI", ShowMainMenu);
+            MenuButton save = new MenuButton(new Vec2(735, 30), new Vec2(75, 25), textColor, "Save", bgColor, "EditorUI", EditorManager.Instance.SaveMap);
         }
 
         public void InitialiseSettings()
@@ -110,6 +126,9 @@ namespace Tower_Defense
             ShowMenu("MainMenu");
         }
 
+        /// <summary>
+        /// Show the editors menu
+        /// </summary>
         public void ShowEditorMenu()
         {
             Debug.Log("showing EditorMenu");
@@ -125,6 +144,21 @@ namespace Tower_Defense
             Debug.Log("Showing settings");
             HideAll();
             ShowMenu("SettingsMenu");
+        }
+
+        /// <summary>
+        /// Show the editors UI
+        /// </summary>
+        public void ShowEditorUI()
+        {
+            Debug.Log("Showing Editor Ui");
+            ShowMenu("EditorUI");
+        }
+
+        public void ShowEditorMapUI()
+        {
+            Debug.Log("Showing Editor Map UI");
+            ShowMenu("EditorMapUI");
         }
 
         #region Global menu methods

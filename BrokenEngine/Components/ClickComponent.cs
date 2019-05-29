@@ -1,4 +1,5 @@
 ﻿using BrokenEngine.Utils;
+using BrokenEngine.Application;
 
 namespace BrokenEngine.Components
 {
@@ -12,9 +13,10 @@ namespace BrokenEngine.Components
     {
         #region properties
         public bool IsClicked { get => clicked; set => clicked = value; }
-        public float Timer { get => timer; set => timer = value; }
+        internal float Timer { get => timer; set => timer = value; }
         public ClickFunction ClickFunc{ get => clickFunction; }
         public ClickMethod ClickingMethod { get => clickMethod; }
+        public Input.MouseButtons MouseButton { get => mouseButton; } 
         #endregion
 
         public delegate void ClickFunction();
@@ -23,13 +25,15 @@ namespace BrokenEngine.Components
         private ClickMethod clickMethod;
         private bool clicked;
         private float timer;
+        private Input.MouseButtons mouseButton;
 
-        public ClickComponent(ClickMethod method, ClickFunction function)
+        public ClickComponent(ClickMethod method, ClickFunction function, Input.MouseButtons mouseButton = Input.MouseButtons.button1)
         {
             clickFunction = function;
             clickMethod = method;
             clicked = false;
             timer = 0;
+            this.mouseButton = mouseButton;
         }
 
         protected internal override void RequireComponents()

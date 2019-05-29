@@ -13,6 +13,11 @@ namespace BrokenEngine.Components
         internal bool IsSubmitted { get { return isSubmitted; } set { isSubmitted = value; } }
 
         /// <summary>
+        /// Whether the renderable has some data that has changed
+        /// </summary>
+        internal bool HasChanged { get => hasChanged; set => hasChanged = value; }
+
+        /// <summary>
         /// The vertices for the component
         /// </summary>
         internal Vec2[] Vertices { get { return vertices; } set { vertices = value; } }
@@ -40,6 +45,7 @@ namespace BrokenEngine.Components
         #endregion
 
         private bool isSubmitted = false;
+        private bool hasChanged = false;
         private Vec2[] vertices = null;
         private Color[] colors = null;
         private uint bufferOffset = 0;
@@ -47,5 +53,22 @@ namespace BrokenEngine.Components
         private Vec2[,] textureOffsets = null;
 
 
+        #region Methods
+
+        /// <summary>
+        /// Changes the color of the renderable
+        /// </summary>
+        /// <param name="newColor">the new color</param>
+        public void ChangeColor(Color newColor)
+        {
+            for (int i = 0; i < colors.Length; i++)
+            {
+                colors[i] = newColor;
+            }
+
+            HasChanged = true;
+        }
+
+        #endregion
     }
 }

@@ -13,7 +13,15 @@ namespace BrokenEngine.Components
         /// </summary>
         public string EntityName { internal get { return name; } set { name = value; } }
 
-        public string Tag { get { return tag; } protected set { tag = value; } }
+        /// <summary>
+        /// Get or set the tag which can be grouped
+        /// </summary>
+        public string Tag { get { return tag; } set { tag = value; } }
+
+        /// <summary>
+        /// Get the position of the entity can only be read
+        /// </summary>
+        public Vec2 Postion { get => CalculateTranslation(); }
 
         /// <summary>
         /// Whether the entity is enabled or not

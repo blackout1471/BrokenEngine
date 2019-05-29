@@ -17,7 +17,7 @@ namespace BrokenEngine.Systems.Physics
             Vec2 mousePos = Application.Input.MousePosition;
 
             // Get all components
-            collisionsComponents = EntityManager.Instance.GetEntitiesComponents<HoverCollisionComponent>();
+            collisionsComponents = EntityManager.Instance.GetEntitiesComponent<HoverCollisionComponent>();
 
             if (collisionsComponents.Length == 0)
                 return;

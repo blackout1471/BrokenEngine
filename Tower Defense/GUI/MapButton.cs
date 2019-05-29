@@ -6,15 +6,13 @@ namespace Tower_Defense.GUI
 {
     public class MapButton : Entity
     {
-        private ClickComponent.ClickFunction clickfunc;
 
-        public MapButton(string mapTextureName, Vec2 size, Vec2 pos, string groupTag, ClickComponent.ClickFunction clickFunc)
+        public MapButton(string mapTextureName, Vec2 size, Vec2 pos, string groupTag)
         {
-            this.clickfunc = clickFunc;
 
             AddComponent(new Sprite(mapTextureName, size, Color.White));
             AddComponent(new HoverCollisionComponent(size, OnHoverEnter, OnHoverExit));
-            AddComponent(new ClickComponent(ClickMethod.SingleClick, this.clickfunc));
+            AddComponent(new ClickComponent(ClickMethod.SingleClick, OnClick));
 
             Tag = groupTag;
             SetPosition(pos);
@@ -38,6 +36,15 @@ namespace Tower_Defense.GUI
         private void OnHoverExit()
         {
             SetScale(new Vec2(1.0f, 1.0f));
+        }
+
+        private void OnClick()
+        {
+            EditorManager.Instance.LoadMap(GetComponent<Sprite>().TextureName);
+            UIManager.Instance.HideAll();
+            UIManager.Instance.ShowEditorUI();
+            UIManager.Instance.ShowEditorMapUI();
+            
         }
     }
 }

@@ -1,6 +1,7 @@
 using BrokenEngine;
 using BrokenEngine.Graphics;
 using BrokenEngine.Utils;
+using System;
 using Tower_Defense.GUI;
 
 namespace Tower_Defense
@@ -23,13 +24,24 @@ namespace Tower_Defense
             // Load Fonts
             TextureManager.Instance.LoadFont("GameFont", new Font("..//..//Assets/Fonts/Bebas.ttf"));
 
+            // Load default Texture
+            Texture errorTexture = new Texture("..//..//Assets/Img/ErrorTexture.png");
+            TextureManager.Instance.LoadTexture("ErrorTexture", errorTexture);
+
             // Load UI
             UIManager.Instance.Initialise();
         }
 
         protected override void OnUpdate()
         {
-            return;
+        }
+
+        /// <summary>
+        /// Exits the game
+        /// </summary>
+        public static void ExitGame()
+        {
+            Environment.Exit(-1);
         }
     }
 }

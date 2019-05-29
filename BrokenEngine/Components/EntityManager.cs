@@ -69,7 +69,7 @@ namespace BrokenEngine.Components
         /// </summary>
         /// <typeparam name="CompType"></typeparam>
         /// <returns></returns>
-        internal CompType[] GetEntitiesComponents<CompType>() where CompType : BaseComponent
+        internal CompType[] GetEntitiesComponent<CompType>() where CompType : BaseComponent
         {
             List<CompType> resEntities = new List<CompType>();
 
@@ -78,6 +78,30 @@ namespace BrokenEngine.Components
                 CompType entityComponent = entities[i].GetComponent<CompType>();
                 if ( entityComponent != null)
                     resEntities.Add(entityComponent);
+            }
+
+            return resEntities.ToArray();
+        }
+
+        /// <summary>
+        /// Add all Entities with multiple components
+        /// </summary>
+        /// <typeparam name="CompType"></typeparam>
+        /// <returns></returns>
+        internal CompType[] GetEntitiesComponents<CompType>() where CompType : BaseComponent
+        {
+            List<CompType> resEntities = new List<CompType>();
+
+            for (int i = 0; i < entities.Count; i++)
+            {
+                CompType[] entityComponent = entities[i].GetComponents<CompType>();
+                if (entityComponent.Length != 0)
+                {
+                    for (int j = 0; j < entityComponent.Length; j++)
+                    {
+                        resEntities.Add(entityComponent[j]);
+                    }
+                }
             }
 
             return resEntities.ToArray();

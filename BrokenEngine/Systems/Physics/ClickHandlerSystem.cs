@@ -35,10 +35,10 @@ namespace BrokenEngine.Systems.Physics
                 {
                     if (curComp.Entity.GetComponent<HoverCollisionComponent>().IsHovering)
                     {
-                        if (Application.Input.GetMouseButton(Application.Input.MouseButtons.button1) == Application.Input.InputAction.Pressed)
+                        if (Application.Input.GetMouseButton(curComp.MouseButton) == Application.Input.InputAction.Pressed)
                         {
                             curComp.IsClicked = true;
-                            Debug.Log(curComp.Entity.EntityName + " has been clicked", Debug.DebugLayer.Entity, Debug.DebugLevel.Information);
+                            Debug.Log(curComp.Entity.EntityName + " has been clicked with " + curComp.MouseButton, Debug.DebugLayer.Entity, Debug.DebugLevel.Information);
                         }
                     }
                 }
@@ -55,6 +55,8 @@ namespace BrokenEngine.Systems.Physics
                                 if (curComp.ClickFunc == null)
                                 {
                                     Debug.Log("ClickHandlers method was null", Debug.DebugLayer.Entity, Debug.DebugLevel.Error);
+                                    curComp.IsClicked = false;
+                                    curComp.Timer = 0;
                                     continue;
                                 }
 

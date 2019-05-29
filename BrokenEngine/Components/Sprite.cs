@@ -5,7 +5,12 @@ namespace BrokenEngine.Components
 {
     public class Sprite : Renderable
     {
+        #region Properties
+        public string TextureName { get => textureName; }
+        #endregion
+
         private Vec2 size;
+        private string textureName;
 
         public Sprite(string textureName, Vec2 size, Color color)
         {
@@ -24,6 +29,7 @@ namespace BrokenEngine.Components
             Vertices[2] = new Vec2(0 + this.size.X, 0 + this.size.Y);
             Vertices[3] = new Vec2(0 - this.size.X, 0 + this.size.Y);
 
+            this.textureName = textureName;
             Texture = TextureManager.Instance.GetTexture(textureName);
             float xoff = (float)(Tao.LayerWidth - (Tao.LayerWidth - Texture.Width)) / Tao.LayerWidth;
             float yoff = (float)(Tao.LayerHeight - (Tao.LayerHeight - Texture.Height)) / Tao.LayerHeight;
@@ -32,6 +38,25 @@ namespace BrokenEngine.Components
             TextureOffsets[0, 1] = new Vec2(xoff, 0);
             TextureOffsets[0, 2] = new Vec2(xoff, yoff);
             TextureOffsets[0, 3] = new Vec2(0, yoff);
+        }
+
+        /// <summary>
+        /// Change the sprite of the current component
+        /// </summary>
+        /// <param name="textureName"></param>
+        public void ChangeSprite(string textureName)
+        {
+            Texture = TextureManager.Instance.GetTexture(textureName);
+            float xoff = (float)(Tao.LayerWidth - (Tao.LayerWidth - Texture.Width)) / Tao.LayerWidth;
+            float yoff = (float)(Tao.LayerHeight - (Tao.LayerHeight - Texture.Height)) / Tao.LayerHeight;
+
+            TextureOffsets[0, 0] = new Vec2(0, 0);
+            TextureOffsets[0, 1] = new Vec2(xoff, 0);
+            TextureOffsets[0, 2] = new Vec2(xoff, yoff);
+            TextureOffsets[0, 3] = new Vec2(0, yoff);
+
+            this.textureName = textureName;
+            HasChanged = true;
         }
     }
 }

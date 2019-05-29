@@ -57,7 +57,7 @@ namespace BrokenEngine.Systems.Renders
         /// </summary>
         private void Flush()
         {
-            renderableComponents = EntityManager.Instance.GetEntitiesComponents<Renderable>();
+            renderableComponents = EntityManager.Instance.GetEntitiesComponent<Renderable>();
 
             if (renderableComponents.Length == 0)
                 return;
@@ -120,7 +120,62 @@ namespace BrokenEngine.Systems.Renders
 
         }
 
-        internal void UpdateData() { throw new System.NotImplementedException(); }
+        internal void UpdateData()
+        {
+            if (renderableComponents.Length == 0)
+                return;
+
+            for (int i = 0; i < renderableComponents.Length; i++)
+            {
+                Renderable curRend = renderableComponents[i];
+
+                if (!curRend.HasChanged)
+                    continue;
+
+                List<float> vertexData = new List<float>();
+
+                for (int j = 0; j < renderableComponents[i].Vertices.Length; j++)
+                {
+                    // XY
+                    vertexData.Add(curRend.Vertices[j].X);
+                    vertexData.Add(curRend.Vertices[j].Y);
+
+                    // RGBA 
+                    vertexData.Add(curRend.Colors[j].R);
+                    vertexData.Add(curRend.Colors[j].G);
+                    vertexData.Add(curRend.Colors[j].B);
+                    vertexData.Add(curRend.Colors[j].A);
+
+                    int currentQuad = j / 4;
+
+                    // Tx Ty
+                    if (curRend.TextureOffsets != null)
+                    {
+                        vertexData.Add(curRend.TextureOffsets[currentQuad, j % 4].X);
+                        vertexData.Add(curRend.TextureOffsets[currentQuad, j % 4].Y);
+                    }
+                    else
+                    {
+                        vertexData.Add(0);
+                        vertexData.Add(0);
+                    }
+
+
+                    // Texture id
+                    if (curRend.Texture == null || curRend.TextureOffsets[currentQuad, j % 4].X == -1)
+                        vertexData.Add(1024);
+                    else
+                        vertexData.Add(curRend.Texture.Id);
+
+                }
+
+                vbo.Bind();
+                Gl.BufferSubData(BufferTarget.ArrayBuffer, (IntPtr)curRend.BufferOffset, (uint)(curRend.Vertices.Length * vbo.VertexSize), vertexData.ToArray());
+                vbo.Unbind();
+
+                curRend.HasChanged = false;
+            }
+        }
 
         /// <summary>
         /// Draw all the entities that has a render component
@@ -128,6 +183,8 @@ namespace BrokenEngine.Systems.Renders
         internal override void Draw()
         {
             Flush();
+
+            UpdateData();
 
             if (renderableComponents.Length == 0)
                 return;

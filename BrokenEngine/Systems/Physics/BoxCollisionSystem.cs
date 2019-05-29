@@ -17,7 +17,7 @@ namespace BrokenEngine.Systems.Physics
         internal override void Update()
         {
             // Get all components
-            collisionsComponents = EntityManager.Instance.GetEntitiesComponents<BoxCollision2D>();
+            collisionsComponents = EntityManager.Instance.GetEntitiesComponent<BoxCollision2D>();
 
             if (collisionsComponents.Length == 0)
                 return;
