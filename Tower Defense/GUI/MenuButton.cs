@@ -12,12 +12,10 @@ namespace Tower_Defense.GUI
         private string text;
         private Color textColor;
         private Color quadColor;
-        private ClickFunction clickFunction;
-
-        public delegate void ClickFunction();
+        private ClickComponent.ClickFunction clickFunction = null;
 
 
-        public MenuButton(Vec2 pos, Vec2 size, Color textColor, string text, Color quadColor, string groupTag, ClickFunction function)
+        public MenuButton(Vec2 pos, Vec2 size, Color textColor, string text, Color quadColor, string groupTag, ClickComponent.ClickFunction function)
         {
             Tag = groupTag;
 
@@ -26,12 +24,12 @@ namespace Tower_Defense.GUI
             this.text = text;
             this.textColor = textColor;
             this.quadColor = quadColor;
+            this.clickFunction = function;
 
             // Create Button
             AddComponent(new Button(size, quadColor, "GameFont", text, textColor));
             AddComponent(new HoverCollisionComponent(size, OnEnterHover, OnExitHover));
-
-            this.clickFunction = function;
+            AddComponent(new ClickComponent(ClickMethod.SingleClick, clickFunction));
 
             SetPosition(pos);
         }
@@ -52,16 +50,6 @@ namespace Tower_Defense.GUI
 
         protected override void Update()
         {
-            if (!EntityEnabled)
-                return;
-
-            if (BrokenEngine.Application.Input.GetMouseButtonDown(BrokenEngine.Application.Input.MouseButtons.button1))
-            {
-                if (GetComponent<HoverCollisionComponent>().IsHovering)
-                {
-                    clickFunction();
-                }
-            }
         }
     }
 }

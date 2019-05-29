@@ -32,7 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BrokenEngine">
+    <Reference Include="BrokenEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\BrokenEngine\bin\Debug\BrokenEngine.dll</HintPath>
     </Reference>
     <Reference Include="Glfw.Net">
@@ -43,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GUI\MapButton.cs" />
     <Compile Include="GUI\MenuButton.cs" />
     <Compile Include="GUI\MenuTitle.cs" />
     <Compile Include="Program.cs" />
@@ -63,9 +66,10 @@
     <None Include="Assets\Fonts\GameFont.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\Img\" />
+    <Folder Include="Maps\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Img\Maps\TestMap.png" />
     <Content Include="Vendor\glfw3.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

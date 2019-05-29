@@ -197,6 +197,7 @@ namespace BrokenEngine.Components
 
             component.Entity = this;
             components.Add(component);
+            component.RequireComponents();
 
             Debug.Log("Added " + component.GetType(), Debug.DebugLayer.Entity, Debug.DebugLevel.Information);
         }

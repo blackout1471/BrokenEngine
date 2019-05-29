@@ -1,5 +1,6 @@
 using BrokenEngine;
 using BrokenEngine.Graphics;
+using BrokenEngine.Utils;
 using Tower_Defense.GUI;
 
 namespace Tower_Defense
@@ -15,6 +16,9 @@ namespace Tower_Defense
         {
             SetWindowSize(false, 800, 600);
             SetWindowTitle("Tower Defense - Broken Engine");
+            
+            // Disable debugging layer
+            Debug.SetLayer(Debug.DebugLayer.Input, true);
 
             // Load Fonts
             TextureManager.Instance.LoadFont("GameFont", new Font("..//..//Assets/Fonts/Bebas.ttf"));

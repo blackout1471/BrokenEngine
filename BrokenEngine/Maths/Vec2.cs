@@ -166,6 +166,11 @@
             return new Vec2(vec1.x * multiplier, vec1.y * multiplier);
         }
 
+        public static Vec2 operator- (Vec2 vec1, float sub)
+        {
+            return new Vec2(vec1.x - sub, vec1.y - sub);
+        }
+
         /// <summary>
         /// Returns the vector as a string
         /// </summary>

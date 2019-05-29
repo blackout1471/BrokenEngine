@@ -24,5 +24,13 @@
         private bool isEnabled = true;
         private string name = "component";
         private Entity entity = null;
+
+        /// <summary>
+        /// Override this method if you want to check if some components is required
+        /// </summary>
+        protected internal virtual void RequireComponents()
+        {
+
+        }
     }
 }
