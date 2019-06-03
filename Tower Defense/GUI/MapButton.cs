@@ -6,26 +6,20 @@ namespace Tower_Defense.GUI
 {
     public class MapButton : Entity
     {
+        private Vec2 size = new Vec2(100, 100);
+        private int mapCount;
 
-        public MapButton(string mapTextureName, Vec2 size, Vec2 pos, string groupTag)
+        public MapButton(string textureName, Vec2 pos, string groupTag, int mapCount)
         {
+            this.mapCount = mapCount;
 
-            AddComponent(new Sprite(mapTextureName, size, Color.White));
+            AddComponent(new Sprite(textureName, size, Color.White));
             AddComponent(new HoverCollisionComponent(size, OnHoverEnter, OnHoverExit));
             AddComponent(new ClickComponent(ClickMethod.SingleClick, OnClick));
 
+
             Tag = groupTag;
             SetPosition(pos);
-        }
-
-        protected override void Start()
-        {
-            
-        }
-
-        protected override void Update()
-        {
-            
         }
 
         private void OnHoverEnter()
@@ -40,10 +34,17 @@ namespace Tower_Defense.GUI
 
         private void OnClick()
         {
-            EditorManager.Instance.LoadMap(GetComponent<Sprite>().TextureName);
-            UIManager.Instance.HideAll();
-            UIManager.Instance.ShowEditorUI();
-            UIManager.Instance.ShowEditorMapUI();
+            Program.CurrentMap = mapCount;
+            SceneManager.LoadScene("Editor");
+        }
+
+        protected override void Start()
+        {
+            
+        }
+
+        protected override void Update()
+        {
             
         }
     }

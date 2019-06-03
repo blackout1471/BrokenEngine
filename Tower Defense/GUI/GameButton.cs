@@ -4,12 +4,12 @@ using BrokenEngine.Graphics;
 
 namespace Tower_Defense.GUI
 {
-    public class MenuButton : Entity
+    class GameButton : Entity
     {
-        private ClickComponent.ClickFunction clickMethod;
-        private Vec2 size = new Vec2(200, 50);
 
-        public MenuButton(string text, Vec2 pos, ClickComponent.ClickFunction clickFunc, string groupTag)
+        private ClickComponent.ClickFunction clickMethod;
+
+        public GameButton(string text, Vec2 pos, Vec2 size, ClickComponent.ClickFunction clickFunc, string groupTag)
         {
 
             clickMethod = clickFunc;
@@ -23,12 +23,12 @@ namespace Tower_Defense.GUI
 
         protected override void Start()
         {
-            
+
         }
 
         protected override void Update()
         {
-            
+
         }
 
         private void OnHoverEnter()

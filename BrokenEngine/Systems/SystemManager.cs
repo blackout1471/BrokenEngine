@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using BrokenEngine.Systems.Renders;
+using BrokenEngine.Components;
 
 namespace BrokenEngine.Systems
 {
@@ -6,7 +8,7 @@ namespace BrokenEngine.Systems
     {
         #region Singleton pattern
 
-        internal static SystemManager Instance { get { if (instance == null) instance = new SystemManager(); return instance; } }
+        public static SystemManager Instance { get { if (instance == null) instance = new SystemManager(); return instance; } }
         private static SystemManager instance = null;
         private SystemManager() { }
 
@@ -33,6 +35,15 @@ namespace BrokenEngine.Systems
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Resets both the GPU Buffer and the Entities
+        /// </summary>
+        public void ResetGPUBuffer()
+        {
+            EntityManager.Instance.ResetEntities();
+            GetSystem<Renderer2D>().ResetBuffer();
         }
 
         /// <summary>

@@ -53,6 +53,15 @@ namespace BrokenEngine.Systems.Renders
         }
 
         /// <summary>
+        /// Removes all the data in the vbo buffer
+        /// </summary>
+        internal void ResetBuffer()
+        {
+            vbo.ClearData();
+            lastEntityOffset = 0;
+        }
+
+        /// <summary>
         /// Flush all the entities that has not been flushed
         /// </summary>
         private void Flush()

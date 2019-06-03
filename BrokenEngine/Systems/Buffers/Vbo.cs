@@ -79,6 +79,13 @@ namespace BrokenEngine.Systems.Buffers
             bufferLayouts.Add(layout);
         }
 
+        internal void ClearData()
+        {
+            Bind();
+            Gl.BufferData(BufferTarget.ArrayBuffer, (uint)(maxEntities * 6 * vertexSize), null, usage);
+            Unbind();
+        }
+
         /// <summary>
         /// Initialises the buffers with its current buffer layout
         /// </summary>

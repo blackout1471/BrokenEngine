@@ -1,34 +1,123 @@
-﻿using System.Collections.Generic;
+﻿using BrokenEngine.Components;
 using BrokenEngine.Utils;
+using BrokenEngine.Systems.Renders;
+using System.Collections.Generic;
+using BrokenEngine.Systems.Physics;
 
-namespace BrokenEngine.Components
+namespace BrokenEngine.Systems
 {
-    public class EntityManager
+    public abstract class Scene
     {
 
-        #region Singleton
+        #region Scene
 
-        /// <summary>
-        /// The instance of the EntityManager
-        /// </summary>
-        public static EntityManager Instance { get
-            {
-                if (instance == null)
-                    instance = new EntityManager();
-                return instance;
-            }
+        public string SceneName { get => sceneName; }
+        private string sceneName;
+
+        public Scene(string sceneName)
+        {
+            entities = new List<Entity>();
+            this.sceneName = sceneName;
         }
 
-        private static EntityManager instance = null;
-        private EntityManager() { }
+        /// <summary>
+        /// Load the scene
+        /// </summary>
+        internal void Load()
+        {
+            entities = new List<Entity>();
+
+            RegisterSystem(new Renderer2D());
+            RegisterSystem(new Renderer2D());
+            RegisterSystem(new ParticleRenderer());
+            RegisterSystem(new BoxCollisionSystem());
+            RegisterSystem(new HoverCollisionSystem());
+            RegisterSystem(new ClickHandlerSystem());
+
+            OnLoad();
+        }
+
+        /// <summary>
+        /// The initialise state
+        /// should load all necessary stuff here
+        /// </summary>
+        protected internal abstract void OnLoad();
 
         #endregion
 
+        #region Systems
+        /// <summary>
+        /// contains all the systems
+        /// </summary>
+        private List<BaseSystem> systems = new List<BaseSystem>();
 
+        /// <summary>
+        /// Get a system from its type
+        /// </summary>
+        /// <typeparam name="SysType"></typeparam>
+        /// <returns></returns>
+        public SysType GetSystem<SysType>() where SysType : BaseSystem
+        {
+            for (int i = 0; i < systems.Count; i++)
+            {
+                System.Type type = systems[i].GetType();
+
+                if (type == typeof(SysType) || type.IsSubclassOf(typeof(SysType)))
+                    return (SysType)systems[i];
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Register a system to the manager
+        /// </summary>
+        /// <param name="system"></param>
+        public void RegisterSystem(BaseSystem system)
+        {
+            systems.Add(system);
+        }
+
+        /// <summary>
+        /// The start loop method for all the systems
+        /// </summary>
+        public void Start()
+        {
+            for (int i = 0; i < systems.Count; i++)
+            {
+                systems[i].Start();
+            }
+        }
+
+        /// <summary>
+        /// This method updates all the systems
+        /// </summary>
+        public void Update()
+        {
+            for (int i = 0; i < systems.Count; i++)
+            {
+                systems[i].Update();
+            }
+        }
+
+        /// <summary>
+        /// this method makes all the systems draw if they have implemented it
+        /// </summary>
+        public void Draw()
+        {
+            for (int i = 0; i < systems.Count; i++)
+            {
+                systems[i].Draw();
+            }
+        }
+
+        #endregion
+
+        #region Entities
         /// <summary>
         /// the list of entities
         /// </summary>
-        private List<Entity> entities = new List<Entity>();
+        private List<Entity> entities;
 
         /// <summary>
         /// Add a entity to the list
@@ -76,7 +165,7 @@ namespace BrokenEngine.Components
             for (int i = 0; i < entities.Count; i++)
             {
                 CompType entityComponent = entities[i].GetComponent<CompType>();
-                if ( entityComponent != null)
+                if (entityComponent != null)
                     resEntities.Add(entityComponent);
             }
 
@@ -105,14 +194,6 @@ namespace BrokenEngine.Components
             }
 
             return resEntities.ToArray();
-        }
-
-        /// <summary>
-        /// Clears the entities
-        /// </summary>
-        internal void ResetEntities()
-        {
-            entities.Clear();
         }
 
         /// <summary>
@@ -160,5 +241,7 @@ namespace BrokenEngine.Components
                 entities[i].Update();
             }
         }
+
+        #endregion
     }
 }

@@ -53,17 +53,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EditorManager.cs" />
-    <Compile Include="GUI\Map.cs" />
+    <Compile Include="GUI\GameButton.cs" />
     <Compile Include="GUI\MapButton.cs" />
     <Compile Include="GUI\MenuButton.cs" />
-    <Compile Include="GUI\MenuTitle.cs" />
-    <Compile Include="GUI\NodeButton.cs" />
-    <Compile Include="Prefabs\AreaNode.cs" />
-    <Compile Include="Prefabs\PathNode.cs" />
+    <Compile Include="GUI\Title.cs" />
+    <Compile Include="Prefabs\Map.cs" />
+    <Compile Include="Prefabs\Node.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UIManager.cs" />
+    <Compile Include="Scene.cs" />
+    <Compile Include="Scenes\Editor.cs" />
+    <Compile Include="Scenes\MainMenu.cs" />
     <Compile Include="Uitls\MapData.cs" />
   </ItemGroup>
   <ItemGroup>

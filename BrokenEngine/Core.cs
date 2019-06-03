@@ -154,7 +154,7 @@ namespace BrokenEngine
                 {
                     ErrorCode glError = Gl.GetError();
                     if (glError != ErrorCode.NoError)
-                        Debug.Log("Opengl Error: " + glError, Debug.DebugLayer.Render, Debug.DebugLevel.Error);
+                        Debug.Log("Opengl Error: " + glError + glError.ToString(), Debug.DebugLayer.Render, Debug.DebugLevel.Error);
                 }
             }
 
