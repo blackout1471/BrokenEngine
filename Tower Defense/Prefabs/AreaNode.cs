@@ -11,8 +11,8 @@ namespace Tower_Defense.Prefabs
 
         public AreaNode(Vec2 pos, bool followMouse = true)
         {
-            AddComponent(new Sprite("AreaNodeTexture", new Vec2(20, 20), Color.White));
-            AddComponent(new HoverCollisionComponent(new Vec2(20, 20), OnHoverEnter, OnHoverExit));
+            AddComponent(new Sprite("AreaNodeTexture", new Vec2(15, 15), Color.White));
+            AddComponent(new HoverCollisionComponent(new Vec2(15, 15), OnHoverEnter, OnHoverExit));
             AddComponent(new ClickComponent(ClickMethod.SingleClick, OnClickRight, Input.MouseButtons.button2));
             AddComponent(new ClickComponent(ClickMethod.SingleClick, OnClickLeft));
 
