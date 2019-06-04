@@ -6,13 +6,12 @@ namespace Tower_Defense.GUI
 {
     public class Title : Entity
     {
-        public Title(string text, Color color, Vec2 pos, string groupTag)
+        public Title(string text, Color color, Vec2 pos)
         {
             AddComponent(new Text(text, "GameFont", 22, color));
-
-            Tag = groupTag;
             SetPosition(pos);
         }
+
 
         protected override void Start()
         {

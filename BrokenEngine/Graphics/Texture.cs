@@ -23,6 +23,7 @@ namespace BrokenEngine.Graphics
                 return dataPt;
             }
         }
+        internal string Path { get => path; }
 
         #endregion
 

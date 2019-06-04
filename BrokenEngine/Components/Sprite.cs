@@ -7,6 +7,7 @@ namespace BrokenEngine.Components
     {
         #region Properties
         public string TextureName { get => textureName; }
+        public string TexturePath { get => Texture.Path; }
         #endregion
 
         private Vec2 size;

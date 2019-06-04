@@ -1,4 +1,5 @@
 ﻿using BrokenEngine;
+using BrokenEngine.Components;
 using BrokenEngine.Systems;
 using BrokenEngine.Utils;
 using System.Collections.Generic;
@@ -54,5 +55,37 @@ namespace Tower_Defense
         }
 
         protected internal abstract void OnLoad();
+
+        /// <summary>
+        /// Show a Entity group from their tag or hide
+        /// </summary>
+        /// <param name="groupTag"></param>
+        protected void SetEntityGroup(string groupTag, bool show)
+        {
+            Entity[] entities = EntityManager.Instance.GetEntities();
+
+            for (int i = 0; i < entities.Length; i++)
+            {
+                if (entities[i].Tag == groupTag)
+                    entities[i].EntityEnabled = show;
+            }
+        }
+
+        /// <summary>
+        /// Shows a group of entities
+        /// </summary>
+        /// <param name="groupTag"></param>
+        protected void ShowEntityGroup(string groupTag)
+        {
+            Entity[] entities = EntityManager.Instance.GetEntities();
+
+            for (int i = 0; i < entities.Length; i++)
+            {
+                entities[i].EntityEnabled = false;
+
+                if (entities[i].Tag == groupTag)
+                    entities[i].EntityEnabled = true;
+            }
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace BrokenEngine.Components
         public Input.MouseButtons MouseButton { get => mouseButton; } 
         #endregion
 
-        public delegate void ClickFunction();
+        public delegate void ClickFunction(Entity sender);
 
         private ClickFunction clickFunction;
         private ClickMethod clickMethod;

@@ -60,7 +60,7 @@ namespace BrokenEngine.Systems.Physics
                                     continue;
                                 }
 
-                                curComp.ClickFunc();
+                                curComp.ClickFunc(curComp.Entity);
                                 curComp.IsClicked = false;
                                 curComp.Timer = 0;
                             }

@@ -53,9 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GUI\GameButton.cs" />
-    <Compile Include="GUI\MapButton.cs" />
-    <Compile Include="GUI\MenuButton.cs" />
+    <Compile Include="GUI\Button.cs" />
     <Compile Include="GUI\Title.cs" />
     <Compile Include="Prefabs\Map.cs" />
     <Compile Include="Prefabs\Node.cs" />
@@ -64,7 +62,7 @@
     <Compile Include="Scene.cs" />
     <Compile Include="Scenes\Editor.cs" />
     <Compile Include="Scenes\MainMenu.cs" />
-    <Compile Include="Uitls\MapData.cs" />
+    <Compile Include="Uitls\FileReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
