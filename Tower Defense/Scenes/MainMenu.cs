@@ -3,6 +3,7 @@ using BrokenEngine.Graphics;
 using BrokenEngine.Maths;
 using System;
 using Tower_Defense.GUI;
+using Tower_Defense.Prefabs;
 
 namespace Tower_Defense.Scenes
 {
@@ -18,6 +19,8 @@ namespace Tower_Defense.Scenes
 
         protected internal override void OnLoad()
         {
+            #region Main Menu GUI
+
             // Main Menu GUI
             Title mainMenuTitle     = new Title("Main Menu", Color.Green, new Vec2(410, 500));
             GUI.Button mainMenuPlay     = new GUI.Button(new Vec2(400, 440), buttonSize, buttonBgColor, "Play", buttonTextColor);
@@ -35,9 +38,13 @@ namespace Tower_Defense.Scenes
 
 
             // Add Delegates
-            mainMenuEditor.AddClickEvent(LoadEditor);
+            mainMenuEditor.AddClickEvent(ShowEditorMenu);
             mainMenuSettings.AddClickEvent(ShowSettingsMenu);
             mainMenuExit.AddClickEvent(Exit);
+
+            #endregion
+
+            #region Settings GUI
 
             // Settings Menu GUI
             Title settingsTitle = new Title("Main Menu", Color.Green, new Vec2(410, 500));
@@ -52,15 +59,63 @@ namespace Tower_Defense.Scenes
             // Add Delegates
             settingsBack.AddClickEvent(ShowMainMenu);
 
+            #endregion
+
+            #region Editor GUI
+            Title editorTitle = new Title("Editor", Color.Green, new Vec2(410, 500));
+            GUI.Button editorCreate = new GUI.Button(new Vec2(400, 440), buttonSize, buttonBgColor, "Create New Map", buttonTextColor);
+            GUI.Button editorEdit = new GUI.Button(new Vec2(400, 380), buttonSize, buttonBgColor, "Edit Map", buttonTextColor);
+            GUI.Button editorBack = new GUI.Button(new Vec2(400, 320), buttonSize, buttonBgColor, "Back", buttonTextColor);
+
+            // Set Tag
+            editorTitle.Tag = "EditorMenu";
+            editorCreate.Tag = "EditorMenu";
+            editorEdit.Tag = "EditorMenu";
+            editorBack.Tag = "EditorMenu";
+
+            // Add Delegates
+            editorCreate.AddClickEvent(ShowCreateMapMenu);
+            editorBack.AddClickEvent(ShowMainMenu);
+
+            #endregion
+
+            #region Create Map GUI
+            // Load all imgs
+            string[] imgPaths = Map.GetMapImgs();
+
+            for (int i = 0; i < imgPaths.Length; i++)
+            {
+                Texture curText = new Texture(imgPaths[i]);
+
+                TextureManager.Instance.LoadTexture(curText.Path, curText);
+
+                GUI.Button curButMap = new GUI.Button(new Vec2((buttonSize.X/2) * (i+1) + (10 * i), 320), new Vec2(buttonSize.X/2, buttonSize.Y), curText.Path);
+                //GUI.Button curButMap = new GUI.Button(new Vec2(200, 320), new Vec2(buttonSize.X/2, buttonSize.Y), curText.Path);
+
+                curButMap.Tag = "CreateMapMenu";
+            }
+
+            GUI.Title createTitle = new GUI.Title("Create New Map", Color.Green, new Vec2(410, 500));
+            GUI.Button createBack = new GUI.Button(new Vec2(400, 100), buttonSize/2, buttonBgColor, "Back", buttonTextColor);
+
+            createBack.Tag = "CreateMapMenu";
+            createTitle.Tag = "CreateMapMenu";
+
+            createBack.AddClickEvent(ShowMainMenu);
+
+            #endregion
+
+            #region Edit Map GUI
+            // Load existing data
+
+            #endregion
+
             // Show Main Menu First
             ShowEntityGroup("MainMenu");
 
         }
 
-        private void LoadEditor(Entity sender)
-        {
-            SceneManager.LoadScene("Editor");
-        }
+        #region GUI Events
 
         private void ShowSettingsMenu(Entity sender)
         {
@@ -72,10 +127,28 @@ namespace Tower_Defense.Scenes
             ShowEntityGroup("MainMenu");
         }
 
+        private void ShowEditorMenu(Entity sender)
+        {
+            ShowEntityGroup("EditorMenu");
+        }
+
+        private void ShowCreateMapMenu(Entity sender)
+        {
+            ShowEntityGroup("CreateMapMenu");
+        }
+
 
         private void Exit(Entity sender)
         {
             Environment.Exit(-1);
+        }
+
+        #endregion
+
+
+        protected internal override void OnLoad(object obj)
+        {
+            throw new NotImplementedException("Not Implemented");
         }
     }
 }

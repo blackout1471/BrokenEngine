@@ -155,6 +155,11 @@
             return new Vec2(vec1.x * multiplier, vec1.y * multiplier);
         }
 
+        public static Vec2 operator+ (Vec2 vec1, int addition)
+        {
+            return new Vec2(vec1.x + addition, vec1.y + addition);
+        }
+
         /// <summary>
         /// Multiply with a float multiplier
         /// </summary>

@@ -1,35 +1,15 @@
 using BrokenEngine;
 using BrokenEngine.Graphics;
 using BrokenEngine.Utils;
-using System;
-using System.IO;
 using Tower_Defense.Scenes;
 
 namespace Tower_Defense
 {
     class Program : Core
     {
-        public static string MapsFolder { get => "..//..//Assets/Img/Maps"; }
-        public static int MapsCount { get => mapsCount; }
-        private static int mapsCount = 0;
-        public static int CurrentMap { get => currentMap; set => currentMap = value; }
-        private static int currentMap = 0;
-
         static void Main(string[] args)
         {
             new Program().RunEngine();
-        }
-
-        private void LoadMapsImgs()
-        {
-            string[] mapFiles = Directory.GetFiles(Program.MapsFolder);
-            mapsCount = mapFiles.Length;
-
-            for (int i = 0; i < mapFiles.Length; i++)
-            {
-                Texture curMap = new Texture(mapFiles[i]);
-                TextureManager.Instance.LoadTexture("Map" + i, curMap);
-            }
         }
 
         protected override void OnStart()
@@ -59,12 +39,8 @@ namespace Tower_Defense
             TextureManager.Instance.LoadTexture("PathNodeTexture", nodeImg);
             TextureManager.Instance.LoadTexture("AreaNodeTexture", areaImg);
 
-            // Load Maps
-            LoadMapsImgs();
-
             // Add The scenes
             SceneManager.AddScene(new MainMenu());
-            SceneManager.AddScene(new Editor());
 
             SceneManager.LoadScene("MainMenu");
 

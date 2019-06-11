@@ -15,7 +15,7 @@ namespace Tower_Defense.Uitls
             }
             catch(IOException e)
             {
-                Debug.Log("Could not read file " + path + " " + e.Message);
+                Debug.Log("Could not read file " + path + " " + e.Message, Debug.DebugLayer.Game, Debug.DebugLevel.Error);
             }
 
             return rtn;
@@ -29,7 +29,7 @@ namespace Tower_Defense.Uitls
             }
             catch(IOException e)
             {
-                Debug.Log("Could not write to file " + path + " " + e.Message);
+                Debug.Log("Could not write to file " + path + " " + e.Message, Debug.DebugLayer.Game, Debug.DebugLevel.Error);
             }
         }
     }
