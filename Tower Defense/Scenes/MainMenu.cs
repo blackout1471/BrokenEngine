@@ -75,6 +75,7 @@ namespace Tower_Defense.Scenes
 
             // Add Delegates
             editorCreate.AddClickEvent(ShowCreateMapMenu);
+            editorEdit.AddClickEvent(ShowEditMapMenu);
             editorBack.AddClickEvent(ShowMainMenu);
 
             #endregion
@@ -90,7 +91,7 @@ namespace Tower_Defense.Scenes
                 TextureManager.Instance.LoadTexture(curText.Path, curText);
 
                 GUI.Button curButMap = new GUI.Button(new Vec2((buttonSize.X/2) * (i+1) + (10 * i), 320), new Vec2(buttonSize.X/2, buttonSize.Y), curText.Path);
-                //GUI.Button curButMap = new GUI.Button(new Vec2(200, 320), new Vec2(buttonSize.X/2, buttonSize.Y), curText.Path);
+                curButMap.AddClickEvent(LoadNewMapScene);
 
                 curButMap.Tag = "CreateMapMenu";
             }
@@ -107,6 +108,30 @@ namespace Tower_Defense.Scenes
 
             #region Edit Map GUI
             // Load existing data
+            string[] mapFiles = Map.GetMapFiles(true);
+
+            for (int i = 0; i < mapFiles.Length; i++)
+            {
+                string[] mapData = Map.GetOnlyMapData(mapFiles[i]);
+
+                Texture curText = new Texture(mapData[0]);
+
+                TextureManager.Instance.LoadTexture(curText.Path, curText);
+
+                GUI.Button curButMap = new GUI.Button(new Vec2((buttonSize.X / 2) * (i + 1) + (10 * i), 320), new Vec2(buttonSize.X / 2, buttonSize.Y), curText.Path);
+                curButMap.EventArg = mapData[1];
+                curButMap.AddClickEvent(LoadEditMapScene);
+
+                curButMap.Tag = "EditMapMenu";
+            }
+
+            GUI.Title editTitle = new GUI.Title("Edit A Map", Color.Green, new Vec2(410, 500));
+            GUI.Button editBack = new GUI.Button(new Vec2(400, 100), buttonSize / 2, buttonBgColor, "Back", buttonTextColor);
+
+            editBack.Tag = "EditMapMenu";
+            editTitle.Tag = "EditMapMenu";
+
+            editBack.AddClickEvent(ShowMainMenu);
 
             #endregion
 
@@ -135,6 +160,27 @@ namespace Tower_Defense.Scenes
         private void ShowCreateMapMenu(Entity sender)
         {
             ShowEntityGroup("CreateMapMenu");
+        }
+
+        private void ShowEditMapMenu(Entity sender)
+        {
+            ShowEntityGroup("EditMapMenu");
+        }
+
+        private void LoadNewMapScene(Entity sender)
+        {
+            SceneManager.LoadScene("NewMap", sender.GetComponent<Sprite>().TextureName);
+        }
+
+        /// <summary>
+        /// Loads the edit map scene can only be used by GUI.Button
+        /// </summary>
+        /// <param name="sender"></param>
+        private void LoadEditMapScene(Entity sender)
+        {
+            GUI.Button but = (GUI.Button)sender;
+
+            SceneManager.LoadScene("EditMap", but.EventArg);
         }
 
 

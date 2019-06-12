@@ -60,10 +60,17 @@ namespace BrokenEngine.Graphics
         /// </summary>
         private void LoadImage()
         {
-            image = FileUtils.ReadFileAsImage(this.path);
-            width = image.Width;
-            height = image.Height;
-            image.RotateFlip(RotateFlipType.Rotate180FlipX); // Flip image for correct settings
+            try
+            {
+                image = FileUtils.ReadFileAsImage(this.path);
+                width = image.Width;
+                height = image.Height;
+                image.RotateFlip(RotateFlipType.Rotate180FlipX); // Flip image for correct settings
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.Message + " " + this.Path, Debug.DebugLayer.Textures, Debug.DebugLevel.Error);
+            }
         }
 
         /// <summary>

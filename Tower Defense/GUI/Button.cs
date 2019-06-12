@@ -6,9 +6,12 @@ namespace Tower_Defense.GUI
 {
     public class Button : Entity
     {
+        public object EventArg { get => eventArg; set => eventArg = value; }
+
         private HoverCollisionComponent.CollisionFunc OnHoverEnterDel   = null;
         private HoverCollisionComponent.CollisionFunc OnHoverExitDel    = null;
         private ClickComponent.ClickFunction OnLeftClickDel             = null;
+        private object eventArg                                         = null;
 
         /// <summary>
         /// Adds a button with a quad and a text

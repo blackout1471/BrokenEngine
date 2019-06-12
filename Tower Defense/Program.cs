@@ -41,6 +41,8 @@ namespace Tower_Defense
 
             // Add The scenes
             SceneManager.AddScene(new MainMenu());
+            SceneManager.AddScene(new NewMap());
+            SceneManager.AddScene(new EditMap());
 
             SceneManager.LoadScene("MainMenu");
 

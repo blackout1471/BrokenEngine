@@ -56,10 +56,13 @@
     <Compile Include="GUI\Button.cs" />
     <Compile Include="GUI\Title.cs" />
     <Compile Include="Prefabs\Map.cs" />
+    <Compile Include="Prefabs\Node.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene.cs" />
+    <Compile Include="Scenes\EditMap.cs" />
     <Compile Include="Scenes\MainMenu.cs" />
+    <Compile Include="Scenes\NewMap.cs" />
     <Compile Include="Uitls\FileReader.cs" />
   </ItemGroup>
   <ItemGroup>

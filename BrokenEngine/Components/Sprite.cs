@@ -6,6 +6,9 @@ namespace BrokenEngine.Components
     public class Sprite : Renderable
     {
         #region Properties
+        /// <summary>
+        /// The name of the texture in the texture manager
+        /// </summary>
         public string TextureName { get => textureName; }
         public string TexturePath { get => Texture.Path; }
         #endregion
