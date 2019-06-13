@@ -60,6 +60,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -68,8 +69,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\Input.cs" />
+    <Compile Include="Application\Time.cs" />
     <Compile Include="Application\Window.cs" />
+    <Compile Include="Components\BaseComponent.cs" />
+    <Compile Include="Components\BoxCollision2D.cs" />
+    <Compile Include="Components\Button.cs" />
+    <Compile Include="Components\ClickComponent.cs" />
+    <Compile Include="Components\Entity.cs" />
+    <Compile Include="Components\EntityManager.cs" />
+    <Compile Include="Components\HoverCollisionComponent.cs" />
+    <Compile Include="Components\ParticleComponent.cs" />
+    <Compile Include="Components\Quad.cs" />
+    <Compile Include="Components\InstancedRenderable.cs" />
+    <Compile Include="Components\Renderable.cs" />
+    <Compile Include="Components\Sprite.cs" />
+    <Compile Include="Components\Text.cs" />
+    <Compile Include="Core.cs" />
+    <Compile Include="Graphics\Color.cs" />
+    <Compile Include="Graphics\Font.cs" />
+    <Compile Include="Graphics\Shader.cs" />
+    <Compile Include="Graphics\Tao.cs" />
+    <Compile Include="Graphics\Texture.cs" />
+    <Compile Include="Graphics\TextureManager.cs" />
+    <Compile Include="Maths\Matrix4f.cs" />
+    <Compile Include="Maths\Vec2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Systems\Buffers\Ibo.cs" />
+    <Compile Include="Systems\BaseSystem.cs" />
+    <Compile Include="Systems\Buffers\Vao.cs" />
+    <Compile Include="Systems\Buffers\Vbo.cs" />
+    <Compile Include="Systems\Physics\BoxCollisionSystem.cs" />
+    <Compile Include="Systems\Physics\ClickHandlerSystem.cs" />
+    <Compile Include="Systems\Physics\HoverCollisionSystem.cs" />
+    <Compile Include="Systems\Renders\ParticleRenderer.cs" />
+    <Compile Include="Systems\Renders\Renderer2D.cs" />
+    <Compile Include="Systems\SystemManager.cs" />
+    <Compile Include="Utils\Debug.cs" />
+    <Compile Include="Utils\FileUtils.cs" />
+    <Compile Include="Utils\ShaderUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
