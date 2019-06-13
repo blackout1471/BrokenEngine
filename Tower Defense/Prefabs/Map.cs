@@ -89,9 +89,11 @@ namespace Tower_Defense.Prefabs
         public int CurAreaGroup { get => curAreaGroup; set => curAreaGroup = value; }
 
         private List<Node> nodes;
+        private List<Enemy> enemies;
         private int curPathGroup, curAreaGroup;
         private string texturePath;
         private string mapName;
+        private float roundTimer;
 
         /// <summary>
         /// Load a map from a texture
@@ -100,8 +102,10 @@ namespace Tower_Defense.Prefabs
         public Map(string textureName)
         {
             nodes = new List<Node>();
+            enemies = new List<Enemy>();
             CurAreaGroup = 0;
             CurPathGroup = 0;
+            roundTimer = 0;
 
             AddComponent(new Sprite(textureName, new Vec2(800, 600), Color.White));
             SetPosition(new Vec2(400, 300));
@@ -145,6 +149,13 @@ namespace Tower_Defense.Prefabs
             Debug.Log("Saved map data to " + MapFolder + mapName + ".mpd");
         }
 
+        public void StartRound()
+        {
+            roundTimer = 0;
+
+            enemies.Add(new Enemy(GetPathNodes()));
+        }
+
         public void Load(string mapName)
         {
             // Get data
@@ -158,7 +169,7 @@ namespace Tower_Defense.Prefabs
                     string[] map = match.Groups[2].Value.Split(',');
 
                     texturePath = map[0];
-                    mapName = map[1];
+                    this.mapName = map[1];
                 }
 
                 // Get nodes
@@ -183,6 +194,12 @@ namespace Tower_Defense.Prefabs
                         curNode.Group = group;
 
                         nodes.Add(curNode);
+
+                        // Set groups
+                        if (curType == NodeType.Path)
+                            curPathGroup = group;
+                        else if (curType == NodeType.Area)
+                            curAreaGroup = group;
                     }
                 }
 
@@ -192,6 +209,19 @@ namespace Tower_Defense.Prefabs
 
                 GetComponent<Sprite>().ChangeSprite(texturePath);
             }
+        }
+
+        private Node[] GetPathNodes()
+        {
+            List<Node> paths = new List<Node>();
+
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                if (nodes[i].Type == NodeType.Path)
+                    paths.Add(nodes[i]);
+            }
+
+            return paths.ToArray();
         }
 
         #region Nodes
@@ -227,6 +257,14 @@ namespace Tower_Defense.Prefabs
             }
 
             nodes.Clear();
+        }
+
+        public void SetNodesVisibility(bool visible)
+        {
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                nodes[i].EntityEnabled = visible;
+            }
         }
 
         #endregion

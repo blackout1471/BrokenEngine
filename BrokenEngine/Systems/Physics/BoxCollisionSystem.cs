@@ -34,7 +34,7 @@ namespace BrokenEngine.Systems.Physics
 
                 BoxCollision2D otherComp;
 
-                otherComp = EntityManager.Instance.GetEntity(curComp.OtherEntityName).GetComponent<BoxCollision2D>();
+                otherComp = curComp.CollisionEntity.GetComponent<BoxCollision2D>();
                 if (otherComp == null)
                 {
                     Debug.Log(curComp.Entity.EntityName + " others entity missing boxcollision component", Debug.DebugLayer.Physics, Debug.DebugLevel.Error);
@@ -67,7 +67,7 @@ namespace BrokenEngine.Systems.Physics
                     if (entityMasterBounding[1].X > entitySlaveBounding[0].X)
                         if (entityMasterBounding[0].Y < entitySlaveBounding[2].Y)
                             if (entityMasterBounding[2].Y > entitySlaveBounding[0].Y)
-                                curComp.CollisionFunction();
+                                curComp.CollisionFunction(curComp.Entity, curComp.CollisionEntity);
                             else
                                 continue;
                         else

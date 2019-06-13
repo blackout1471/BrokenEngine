@@ -38,6 +38,7 @@ namespace Tower_Defense.Scenes
 
 
             // Add Delegates
+            mainMenuPlay.AddClickEvent(LoadPlayMap);
             mainMenuEditor.AddClickEvent(ShowEditorMenu);
             mainMenuSettings.AddClickEvent(ShowSettingsMenu);
             mainMenuExit.AddClickEvent(Exit);
@@ -165,6 +166,11 @@ namespace Tower_Defense.Scenes
         private void ShowEditMapMenu(Entity sender)
         {
             ShowEntityGroup("EditMapMenu");
+        }
+
+        private void LoadPlayMap(Entity sender)
+        {
+            SceneManager.LoadScene("PlayMap", "TheGloryRoad");
         }
 
         private void LoadNewMapScene(Entity sender)

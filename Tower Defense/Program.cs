@@ -43,6 +43,7 @@ namespace Tower_Defense
             SceneManager.AddScene(new MainMenu());
             SceneManager.AddScene(new NewMap());
             SceneManager.AddScene(new EditMap());
+            SceneManager.AddScene(new PlayMap());
 
             SceneManager.LoadScene("MainMenu");
 

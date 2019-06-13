@@ -44,6 +44,7 @@ namespace Tower_Defense.Prefabs
             // Add components
             AddComponent(new Sprite(texture, size, Color.White));
             AddComponent(new HoverCollisionComponent(size, HoverEnterEvent, HoverExitEvent));
+            AddComponent(new BoxCollision2D(size));
             AddComponent(new ClickComponent(ClickMethod.SingleClick, ClickLeftEvent));
             AddComponent(new ClickComponent(ClickMethod.SingleClick, ClickRightEvent, BrokenEngine.Application.Input.MouseButtons.button2));
 

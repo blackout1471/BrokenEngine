@@ -5,7 +5,7 @@ namespace BrokenEngine.Components
     public class BoxCollision2D : BaseComponent
     {
         #region Properties
-        internal string OtherEntityName { get => otherEntityName; } 
+        internal Entity CollisionEntity { get => collisionEntity; } 
         internal CollisionFunc CollisionFunction { get => collisionFunc; }
         internal Vec2 Size { get => size; }
         #endregion
@@ -13,10 +13,10 @@ namespace BrokenEngine.Components
         /// <summary>
         /// The delegate for when colliding with object
         /// </summary>
-        public delegate void CollisionFunc();
+        public delegate void CollisionFunc(Entity sender, Entity colObject);
 
         private CollisionFunc collisionFunc = null;
-        private string otherEntityName;
+        private Entity collisionEntity;
         private Vec2 size = null;
 
         /// <summary>
@@ -29,8 +29,15 @@ namespace BrokenEngine.Components
         {
             this.size = size / 2;
 
-            otherEntityName = entityName;
+            collisionEntity = EntityManager.Instance.GetEntity(entityName);
             collisionFunc = function;
+        }
+
+        public BoxCollision2D(Entity colEntity, Vec2 size, CollisionFunc func)
+        {
+            this.size = size / 2;
+            collisionEntity = colEntity;
+            collisionFunc = func;
         }
 
         /// <summary>
@@ -40,6 +47,11 @@ namespace BrokenEngine.Components
         public BoxCollision2D(Vec2 size)
         {
             this.size = size / 2;
+        }
+
+        public void ChangeCollisionEntity(Entity entity)
+        {
+            collisionEntity = entity;
         }
 
     }
